@@ -21,3 +21,4 @@ Apesar das dificuldades de tratar de um projeto novo sem muita preparação, tod
 
 - Artur de Carvalho Lyra
 - João Luís Gomes Agra
+- Ricardo Bizerra de Lima Filho
