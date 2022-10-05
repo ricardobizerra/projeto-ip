@@ -11,6 +11,12 @@ Para instalar o Pygame, pode-se usar o comando
 python3 -m pip install -U pygame --user
 ```
 
+## Sobre o Projeto
+
+O projeto como um todo se baseia num tutorial online de [como criar um jogo estilo Zelda em Python](https://www.youtube.com/watch?v=QU1pPzEGrqw), mas a temática central não foi definida pelo tutorial.
+
+Apesar das dificuldades de tratar de um projeto novo sem muita preparação, todos do grupo estão empenhados para expandir nossa base de conhecimentos e criar um projeto não só apresentável, mas divertido.
+
 ## Contribuidores
 
 Artur de Carvalho Lyra
