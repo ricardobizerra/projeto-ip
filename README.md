@@ -20,4 +20,5 @@ Apesar das dificuldades de tratar de um projeto novo sem muita preparação, tod
 ## Contribuidores
 
 Artur de Carvalho Lyra
+
 João Luís Gomes Agra
