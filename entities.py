@@ -17,10 +17,10 @@ class Entidade:
 
     def criar_mapa(self):
         #LOOP PRA CONSEGUIR INFORMACOES DAS COORDENADAS
-        for index_inha, linha in enumerate(mapa):
+        for index_linha, linha in enumerate(mapa):
             for index_coluna, coluna in enumerate(linha):
                 x = index_coluna * escala
-                y = index_coluna * escala
+                y = index_linha * escala
                 if coluna == 'x':
                     Obstaculo((x,y), [self.sprites_visiveis])
                 if coluna == 'p':
