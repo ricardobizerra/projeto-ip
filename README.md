@@ -24,3 +24,4 @@ Apesar das dificuldades de tratar de um projeto novo sem muita preparação, tod
 - Ricardo Bizerra de Lima Filho <a href="https://github.com/ricardobizerra">(GitHub)</a>
 - Breno Gabriel de Melo Lima  <a href="https://github.com/breno-gabriel">(GitHub)</a>
 - Lucas Henrique do Nascimento Silva <a href="https://github.com/lucashnss ">(GitHub)</a>
+- Severino Murilo da Silva <a href="https://github.com/Mur1loo">(GitHub)</a>
