@@ -17,6 +17,8 @@ O projeto como um todo se baseia num tutorial online de [como criar um jogo esti
 
 Apesar das dificuldades de tratar de um projeto novo sem muita preparação, todos do grupo estão empenhados para expandir nossa base de conhecimentos e criar um projeto não só apresentável, mas divertido.
 
+Além disso, foi criado um projeto no Notion para dar noção da espectativa e meta do projeto e, futuramente, divisão de tarefas.
+
 ## Contribuidores
 
 - Artur de Carvalho Lyra <a href="https://github.com/arcaly">(GitHub)</a>
