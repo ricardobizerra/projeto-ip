@@ -5,6 +5,8 @@ from settings import *
 
 from entities import Entidade
 
+import sys
+
 # import entities
 # import os
 
@@ -25,8 +27,9 @@ class Jogo:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
+
             self.tela.fill('black')
-            self.entidade.mostratela()
+            self.entidade.run()
             pygame.display.update()
             self.clock.tick(FPS)
 

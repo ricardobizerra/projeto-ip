@@ -9,7 +9,7 @@ class Entidade:
         self.superficie_tela = pygame.display.get_surface()
 
         #GRUPOS DE DE CONFIGURAÇÕES DE  SPRITES
-        self.sprites_visiveis = pygame.sprite.Group()
+        self.sprites_visiveis = YsortGrupoCamera()
         self.sprites_obstaculos = pygame.sprite.Group()
 
         #CONFIGURAÇÃO DE SPRITE
@@ -22,12 +22,34 @@ class Entidade:
                 x = index_coluna * escala
                 y = index_linha * escala
                 if coluna == 'x':
-                    Obstaculo((x,y), [self.sprites_visiveis])
+                    Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos])
                 if coluna == 'p':
-                    Personagem((x,y), [self.sprites_visiveis])
-                    
+                    self.personagem = Personagem((x,y), [self.sprites_visiveis],self.sprites_obstaculos)
 
-    def mostratela(self):
+
+    def run(self):
         #ATUALIZA E MOSTRA O JOGO
-        self.sprites_visiveis.draw(self.superficie_tela)
-        pass
+        self.sprites_visiveis.draw_personalizado(self.personagem)
+        self.sprites_visiveis.update()
+
+
+class YsortGrupoCamera(pygame.sprite.Group):
+    def __init__(self):
+        super().__init__()
+
+        #CONFIGS GERAIS
+        self.superficie_tela = pygame.display.get_surface()
+        self.half_widht = self.superficie_tela.get_size()[0] // 2
+        self.half_height = self.superficie_tela.get_size()[1] // 2
+        self.offset = pygame.math.Vector2()
+
+    def draw_personalizado(self, personagem):
+
+        #POSIÇÃO DA CÂMERA
+        self.offset.x = personagem.rect.centerx - self.half_widht
+        self.offset.y = personagem.rect.centery - self.half_height
+
+        # for sprite in self.sprites():
+        for sprite in sorted(self.sprites(), key= lambda sprite: sprite.rect.centery):
+            offset_pos = sprite.rect.topleft - self.offset
+            self.superficie_tela.blit(sprite.image,offset_pos)
