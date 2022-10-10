@@ -6,7 +6,7 @@ from settings import *
 class Entidade:
     def __init__(self):
         #definir o que vai para a tela do main
-        self.superficie_tela = pygame.display.get_surface
+        self.superficie_tela = pygame.display.get_surface()
 
         #GRUPOS DE DE CONFIGURAÇÕES DE  SPRITES
         self.sprites_visiveis = pygame.sprite.Group()
