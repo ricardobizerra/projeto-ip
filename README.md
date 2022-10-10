@@ -22,8 +22,11 @@ Além disso, foi criado um projeto no Notion para dar noção da espectativa e m
 ## Contribuidores
 
 - Artur de Carvalho Lyra <a href="https://github.com/arcaly">(GitHub)</a>
+    - Mantém GitHub
+    - Atualizou a documentação
 - João Luís Gomes Agra <a href="https://github.com/joca113">(GitHub)</a>
 - Ricardo Bizerra de Lima Filho <a href="https://github.com/ricardobizerra">(GitHub)</a>
 - Breno Gabriel de Melo Lima  <a href="https://github.com/breno-gabriel">(GitHub)</a>
 - Lucas Henrique do Nascimento Silva <a href="https://github.com/lucashnss ">(GitHub)</a>
 - Severino Murilo da Silva <a href="https://github.com/Mur1loo">(GitHub)</a>
+    - Adicionou base do código
