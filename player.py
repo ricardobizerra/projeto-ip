@@ -1,4 +1,3 @@
-from obstaculo import Entidade
 
 import pygame
 from settings import *
