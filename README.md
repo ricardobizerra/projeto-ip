@@ -55,10 +55,10 @@ O Busca-Crachá é um jogo 2D com câmera top-down que tem como foco o controle 
 
 ## Conceitos vistos na disciplina e usados no código
 
-    - Programação Orientada a Objetos foi um conceito visto em aula e fortemente utilizado, uma concepção de criar código utilizada em todo o jogo, com classes para os players, inimigos, coletáveis.
-    - Listas: o uso de listas foi muito importante pois, com elas, conseguimos fazer uma matriz de listas e representar o mapa do nosso jogo
+- Programação Orientada a Objetos foi um conceito visto em aula e fortemente utilizado, uma concepção de criar código utilizada em todo o jogo, com classes para os players, inimigos, coletáveis.
+- Listas: o uso de listas foi muito importante pois, com elas, conseguimos fazer uma matriz de listas e representar o mapa do nosso jogo
 
 ## Desafios e Erros
-    - Maior erro do projeto:
-    - Maior desafio do projeto:
-    - Lições aprendidas:
+- Maior erro do projeto:
+- Maior desafio do projeto:
+- Lições aprendidas:
