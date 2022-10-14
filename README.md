@@ -40,18 +40,18 @@ O Busca-Crachá é um jogo 2D com câmera top-down que tem como foco o controle 
 ## Contribuidores e funções
 
 - Artur de Carvalho Lyra <a href="https://github.com/arcaly">(GitHub)</a>
-    - Mantém GitHub
-    - Atualiza a documentação
+    - Mantém GitHub.
+    - Atualiza a documentação.
 - João Luís Gomes Agra <a href="https://github.com/joca113">(GitHub)</a>
 - Ricardo Bizerra de Lima Filho <a href="https://github.com/ricardobizerra">(GitHub)</a>
-    - Criou nossa página no Notion
-    - Responsável pelas armas
+    - Criou nossa página no Notion.
+    - Responsável pelas armas.
 - Breno Gabriel de Melo Lima  <a href="https://github.com/breno-gabriel">(GitHub)</a>
-    - Responsável pelos itens coletáveis
+    - Responsável pela interação jogador-inimigo.
 - Lucas Henrique do Nascimento Silva <a href="https://github.com/lucashnss ">(GitHub)</a>
-    - Responsável pelo mapa e partes gráficas
+    - Responsável pelo mapa e partes gráficas.
 - Severino Murilo da Silva <a href="https://github.com/Mur1loo">(GitHub)</a>
-    - Adicionou base do código
+    - Adicionou base do código.
 
 ## Conceitos vistos na disciplina e usados no código
 
