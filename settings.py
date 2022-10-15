@@ -29,3 +29,17 @@ mapa = [
     ['x',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','x'],
     ['x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x']
 ]
+
+# dicionário de armas
+weapon_data = {
+    'raquete': {
+        'cooldown': 100,
+        'dano': 20,
+        'graphic': '../graphics/cenario/piso/chao.png'
+    },
+    'bola': {
+        'cooldown': 100,
+        'dano': 2,
+        'graphic': '../graphics/cenario/piso/chao.png'
+    }
+}
