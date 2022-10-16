@@ -2,6 +2,7 @@ import pygame
 from obstaculo import Obstaculo
 from player import Personagem
 from settings import *
+from weapon import Weapon
 
 class Level:
     def __init__(self):
@@ -24,8 +25,10 @@ class Level:
                 if coluna == 'x':
                     Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos])
                 if coluna == 'p':
-                    self.personagem = Personagem((x,y), [self.sprites_visiveis],self.sprites_obstaculos)
-
+                    self.personagem = Personagem((x,y), [self.sprites_visiveis], self.sprites_obstaculos, self.criar_ataque)
+    
+    def criar_ataque(self):
+        Weapon(self.personagem, [self.sprites_visiveis])
 
     def run(self):
         #ATUALIZA E MOSTRA O JOGO

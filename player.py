@@ -2,7 +2,7 @@ import pygame
 from settings import *
 
 class Personagem(pygame.sprite.Sprite):
-    def __init__(self, pos, grupo_sprite, obstaculo_sprites):
+    def __init__(self, pos, grupo_sprite, obstaculo_sprites, criar_ataque):
         super().__init__(grupo_sprite)
         self.image = pygame.image.load('graphics/personagem/New Piskel.png').convert_alpha()
         self.rect =  self.image.get_rect(topleft=pos)
@@ -11,6 +11,10 @@ class Personagem(pygame.sprite.Sprite):
         #MOVIMENTO DO PLAYER
         self.direction = pygame.math.Vector2()
         self.speed = 5
+        self.attacking = False
+        self.attack_cooldown = 400
+        self.attack_time = None
+        self.criar_ataque = criar_ataque
 
         #COLISÃO
         self.obstaculo_sprites = obstaculo_sprites
@@ -19,19 +23,26 @@ class Personagem(pygame.sprite.Sprite):
     def input(self):
         keys = pygame.key.get_pressed()
 
-        if keys[pygame.K_UP]:
+        # input de movimento
+        if keys[pygame.K_UP] or keys[pygame.K_w]:
             self.direction.y = -1
-        elif keys[pygame.K_DOWN]:
+        elif keys[pygame.K_DOWN] or keys[pygame.K_s]:
             self.direction.y = 1
         else:
             self.direction.y = 0
 
-        if keys[pygame.K_RIGHT]:
+        if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
             self.direction.x = 1
-        elif keys[pygame.K_LEFT]:
+        elif keys[pygame.K_LEFT] or keys[pygame.K_a]:
             self.direction.x = -1
         else:
             self.direction.x = 0
+        
+        # input de ataque
+        if keys[pygame.K_SPACE] and not self.attacking:
+            self.attacking = True
+            self.attack_time = pygame.time.get_ticks()
+            self.criar_ataque()
 
     def move(self, speed):
 
@@ -61,9 +72,17 @@ class Personagem(pygame.sprite.Sprite):
                     if self.direction.y > 0: #INDO PARA BAIXO
                         self.hitbox.bottom = sprite.hitbox.top
                     if self.direction.y < 0: #INDO PARA CIMA
-                        self.hitbox.top = sprite.hitbox.bottom
+                        self.hitbox.top = sprite.hitbox.bottom    
 
+    # cooldown
+    def cooldowns(self):
+        current_time = pygame.time.get_ticks()
+
+        if self.attacking:
+            if current_time - self.attack_time >= self.attack_cooldown:
+                self.attacking = False
 
     def update(self):
         self.input()
+        self.cooldowns()
         self.move(self.speed)
