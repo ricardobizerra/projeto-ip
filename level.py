@@ -28,8 +28,9 @@ class Level:
                 if coluna == 'p':
                     self.personagem = Personagem((x,y), [self.sprites_visiveis], self.sprites_obstaculos, self.criar_ataque)
     
-    def criar_ataque(self):
-        Weapon(self.personagem, [self.sprites_visiveis])
+    # criação do ataque
+    def criar_ataque(self, type):
+        Weapon(self.personagem, [self.sprites_visiveis], type)
 
     def run(self):
         #ATUALIZA E MOSTRA O JOGO

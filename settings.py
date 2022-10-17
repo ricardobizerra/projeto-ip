@@ -35,11 +35,11 @@ weapon_data = {
     'raquete': {
         'cooldown': 100,
         'dano': 20,
-        'graphic': '../graphics/cenario/piso/chao.png'
+        'graphic': 'graphics/personagem/raquete-cin-1.png'
     },
     'bola': {
-        'cooldown': 100,
+        'cooldown': 25,
         'dano': 2,
-        'graphic': '../graphics/cenario/piso/chao.png'
+        'graphic': 'graphics/personagem/bola-azul.png'
     }
 }

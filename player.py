@@ -26,6 +26,7 @@ class Personagem(pygame.sprite.Sprite):
         #COLISÃO
         self.obstaculo_sprites = obstaculo_sprites
     
+    # "unir" estados do jogador com pastas de imagens para animação
     def import_player_assets(self):
         character_path = 'graphics/personagem/'
         self.animations = {
@@ -76,7 +77,12 @@ class Personagem(pygame.sprite.Sprite):
             if keys[pygame.K_SPACE]:
                 self.attacking = True
                 self.attack_time = pygame.time.get_ticks()
-                self.criar_ataque()
+                self.criar_ataque('raquete')
+            
+            if keys[pygame.K_b]:
+                self.attacking = True
+                self.attack_time = pygame.time.get_ticks()
+                self.criar_ataque('bola')
 
     # estados do jogador
     def get_status(self):
@@ -159,5 +165,6 @@ class Personagem(pygame.sprite.Sprite):
     def update(self):
         self.input()
         self.cooldowns()
+        self.animate()
         self.get_status()
         self.move(self.speed)

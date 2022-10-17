@@ -1,13 +1,14 @@
 import pygame
+from settings import *
 
 class Weapon(pygame.sprite.Sprite):
 
-    def __init__(self, player, groups):
+    def __init__(self, player, groups, type):
         super().__init__(groups)
         direction = player.status.split('_')[1]
 
         # gráficos
-        self.image = pygame.image.load('graphics/personagem/raquete-cin-1.png').convert_alpha()
+        self.image = pygame.image.load(weapon_data[type]['graphic']).convert_alpha()
         
         # posicionamento
         if direction == 'right':

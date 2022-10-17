@@ -28,7 +28,7 @@ class Jogo:
                     pygame.quit()
                     sys.exit()
 
-            self.tela.fill('black')
+            self.tela.fill('#000ca6')
             self.level.run()
             pygame.display.update()
             self.clock.tick(FPS)
