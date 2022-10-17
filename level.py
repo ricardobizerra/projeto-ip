@@ -3,7 +3,7 @@ from obstaculo import Obstaculo
 from player import Personagem
 from settings import *
 
-class Entidade:
+class Level:
     def __init__(self):
         #definir o que vai para a tela do main
         self.superficie_tela = pygame.display.get_surface()

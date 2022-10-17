@@ -3,11 +3,11 @@ import pygame.display
 
 from settings import *
 
-from entities import Entidade
+from level import Level
 
 import sys
 
-# import entities
+# import level
 # import os
 
 class Jogo:
@@ -19,7 +19,7 @@ class Jogo:
         self.nome_jogo = pygame.display.set_caption('Nome do jogo')
         self.clock = pygame.time.Clock()
 
-        self.entidade = Entidade()
+        self.level = Level()
 
     def mostrartela(self):
         while True:
@@ -29,7 +29,7 @@ class Jogo:
                     sys.exit()
 
             self.tela.fill('black')
-            self.entidade.run()
+            self.level.run()
             pygame.display.update()
             self.clock.tick(FPS)
 
