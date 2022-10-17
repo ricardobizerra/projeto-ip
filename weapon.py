@@ -7,7 +7,7 @@ class Weapon(pygame.sprite.Sprite):
         direction = player.status.split('_')[1]
 
         # gráficos
-        self.image = pygame.image.load('graphics/personagem/raquete-cin.png').convert_alpha()
+        self.image = pygame.image.load('graphics/personagem/raquete-cin-1.png').convert_alpha()
         
         # posicionamento
         if direction == 'right':
