@@ -3,6 +3,7 @@ from obstaculo import Obstaculo
 from player import Personagem
 from settings import *
 from weapon import Weapon
+from debug import *
 
 class Level:
     def __init__(self):
@@ -34,6 +35,7 @@ class Level:
         #ATUALIZA E MOSTRA O JOGO
         self.sprites_visiveis.draw_personalizado(self.personagem)
         self.sprites_visiveis.update()
+        debug(self.personagem.status)
 
 
 class YsortGrupoCamera(pygame.sprite.Group):
