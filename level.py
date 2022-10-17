@@ -4,6 +4,7 @@ from player import Personagem
 from settings import *
 from weapon import Weapon
 from debug import *
+from interface_usuario import Interface_usuario
 
 class Level:
     def __init__(self):
@@ -16,6 +17,9 @@ class Level:
 
         #CONFIGURAÇÃO DE SPRITE
         self.criar_mapa()
+        
+        #INTERFACE DO PERSONAGEM.
+        self.ui = Interface_usuario()
 
     def criar_mapa(self):
         #LOOP PRA CONSEGUIR INFORMACOES DAS COORDENADAS
@@ -36,6 +40,7 @@ class Level:
         #ATUALIZA E MOSTRA O JOGO
         self.sprites_visiveis.draw_personalizado(self.personagem)
         self.sprites_visiveis.update()
+        self.ui.display(self.personagem)
         debug(self.personagem.status)
 
 
