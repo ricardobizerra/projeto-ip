@@ -11,7 +11,7 @@ class Personagem(pygame.sprite.Sprite):
 
         # setup gráfico
         self.import_player_assets()
-        self.status = 'down'
+        self.status = 'normal_down'
         self.frame_index = 0
         self.animation_speed = 0.15
 
@@ -56,19 +56,19 @@ class Personagem(pygame.sprite.Sprite):
             # input de movimento
             if keys[pygame.K_UP] or keys[pygame.K_w]:
                 self.direction.y = -1
-                self.status = 'up'
+                self.status = 'normal_up'
             elif keys[pygame.K_DOWN] or keys[pygame.K_s]:
                 self.direction.y = 1
-                self.status = 'down'
+                self.status = 'normal_down'
             else:
                 self.direction.y = 0
 
             if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
                 self.direction.x = 1
-                self.status = 'right'
+                self.status = 'normal_right'
             elif keys[pygame.K_LEFT] or keys[pygame.K_a]:
                 self.direction.x = -1
-                self.status = 'left'
+                self.status = 'normal_left'
             else:
                 self.direction.x = 0
             
@@ -85,7 +85,7 @@ class Personagem(pygame.sprite.Sprite):
         if self.direction.x == 0 and self.direction.y == 0:
 
             if not 'idle' in self.status and not 'attack' in self.status:
-                self.status = 'idle_' + self.status
+                self.status = self.status.replace('normal_','idle_')
         
         # ataque
         if self.attacking:
@@ -98,12 +98,12 @@ class Personagem(pygame.sprite.Sprite):
                 if 'idle' in self.status:
                     self.status = self.status.replace('idle_','attack_')
                 else:
-                    self.status = 'attack_' + self.status
+                    self.status = self.status.replace('normal_','attack_')
         
         else:
 
             if 'attack' in self.status:
-                self.status = self.status.replace('attack_','')
+                self.status = self.status.replace('attack_','normal_')
 
     def move(self, speed):
 
