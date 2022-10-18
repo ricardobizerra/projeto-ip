@@ -3,6 +3,9 @@ from obstaculo import Obstaculo
 from player import Personagem
 from settings import *
 from weapon import Weapon
+from enemies import Inimigo
+from debug import *
+from interface_usuario import Interface_usuario
 
 class Level:
     def __init__(self):
@@ -15,6 +18,9 @@ class Level:
 
         #CONFIGURAÇÃO DE SPRITE
         self.criar_mapa()
+        
+        #INTERFACE DO PERSONAGEM.
+        self.ui = Interface_usuario()
 
     def criar_mapa(self):
         #LOOP PRA CONSEGUIR INFORMACOES DAS COORDENADAS
@@ -26,14 +32,19 @@ class Level:
                     Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos])
                 if coluna == 'p':
                     self.personagem = Personagem((x,y), [self.sprites_visiveis], self.sprites_obstaculos, self.criar_ataque)
+                if coluna == 'i':
+                    self.inimigo = Inimigo((x,y), [self.sprites_visiveis], self.sprites_obstaculos, self.criar_ataque)
     
-    def criar_ataque(self):
-        Weapon(self.personagem, [self.sprites_visiveis])
+    # criação do ataque
+    def criar_ataque(self, type):
+        Weapon(self.personagem, [self.sprites_visiveis], type)
 
     def run(self):
         #ATUALIZA E MOSTRA O JOGO
         self.sprites_visiveis.draw_personalizado(self.personagem)
         self.sprites_visiveis.update()
+        self.ui.display(self.personagem)
+        debug(self.personagem.status)
 
 
 class YsortGrupoCamera(pygame.sprite.Group):
