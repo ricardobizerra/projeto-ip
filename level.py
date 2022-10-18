@@ -4,6 +4,10 @@ from player import Personagem
 from settings import *
 from support import *
 from random import choice
+from weapon import Weapon
+from enemies import Inimigo
+from debug import *
+from interface_usuario import Interface_usuario
 
 class Level:
     def __init__(self):
@@ -18,9 +22,11 @@ class Level:
         self.criar_mapa()
 
     def criar_mapa(self):
-        layouts = { 'boundary': import_csv_layout('map/map_FloorBlocks.csv'),
-        'grass': import_csv_layout('map/map_Grass.csv'),
-        'object': import_csv_layout('map/map_Objects.csv')}
+        layouts = { 
+            'boundary': import_csv_layout('map/map_FloorBlocks.csv'),
+            'grass': import_csv_layout('map/map_Grass.csv'),
+            'object': import_csv_layout('map/map_Objects.csv')
+        }
         graphics = {
             'grass': import_folder('graphics/Grass'),
             'objects': import_folder('graphics/objects')
@@ -44,15 +50,21 @@ class Level:
                             surf = graphics['objects'][int(coluna)]
                             Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos], 'object', surf)
                             
-
         self.personagem = Personagem((2000,1430),[self.sprites_visiveis],self.sprites_obstaculos)
-
+        
+        #INTERFACE DO PERSONAGEM.
+        self.ui = Interface_usuario()
+    
+    # criação do ataque
+    def criar_ataque(self, type):
+        Weapon(self.personagem, [self.sprites_visiveis], type)
 
     def run(self):
         #ATUALIZA E MOSTRA O JOGO
         self.sprites_visiveis.draw_personalizado(self.personagem)
         self.sprites_visiveis.update()
-
+        self.ui.display(self.personagem)
+        debug(self.personagem.status)
 
 class YsortGrupoCamera(pygame.sprite.Group):
     def __init__(self):
@@ -68,7 +80,6 @@ class YsortGrupoCamera(pygame.sprite.Group):
         self.floor_surf = pygame.image.load('graphics/tilemap/ground.png')
         self.floor_rect = self.floor_surf.get_rect(topleft = (0,0))
         
-
     def draw_personalizado(self, personagem):
 
         #POSIÇÃO DA CÂMERA
