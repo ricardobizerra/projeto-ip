@@ -31,4 +31,4 @@ class Interface_usuario:
         
  
     def display(self,jogador): #Esse método busca fazer o méotodo anterior exibir a barra de vida construídda por ele.
-        self.mostrar_barra_vida(jogador.saude,jogador.status['saude'], self.barra_vida_rect, cor_barra_vida) 
+        self.mostrar_barra_vida(jogador.saude,jogador.status_saude['saude'], self.barra_vida_rect, cor_barra_vida) 

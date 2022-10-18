@@ -23,6 +23,10 @@ class Personagem(pygame.sprite.Sprite):
         self.attack_time = None
         self.criar_ataque = criar_ataque
 
+        #STATUS DO PERSONAGEM.
+        self.status_saude = {'saude': 100}
+        self.saude = self.status_saude['saude']
+
         #COLISÃO
         self.obstaculo_sprites = obstaculo_sprites
     
