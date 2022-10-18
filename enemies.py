@@ -5,7 +5,7 @@ from player import *
 class Inimigo(pygame.sprite.Sprite):
     def __init__(self, pos, grupo_sprite, obstaculo_sprites, criar_ataque):
         super().__init__(grupo_sprite)
-        self.image = pygame.image.load('graphics/inimigos/inimigovermelho.png').convert_alpha()
+        self.image = pygame.image.load('graphics/personagem/attack_down/attack_down.png').convert_alpha() # só mudei o arquivo para o programa rodar
         self.rect =  self.image.get_rect(topleft=pos)
         self.hitbox = self.rect.inflate(0, -26)
 
