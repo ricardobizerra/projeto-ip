@@ -20,7 +20,7 @@ class Level:
         self.criar_mapa()
         
         #INTERFACE DO PERSONAGEM.
-        self.ui = Interface_usuario()
+        self.iu = Interface_usuario()
 
     def criar_mapa(self):
         #LOOP PRA CONSEGUIR INFORMACOES DAS COORDENADAS
@@ -43,8 +43,8 @@ class Level:
         #ATUALIZA E MOSTRA O JOGO
         self.sprites_visiveis.draw_personalizado(self.personagem)
         self.sprites_visiveis.update()
-        self.ui.display(self.personagem)
         debug(self.personagem.status)
+        self.iu.display(self.personagem )
 
 
 class YsortGrupoCamera(pygame.sprite.Group):
