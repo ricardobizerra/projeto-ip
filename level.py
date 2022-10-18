@@ -3,6 +3,7 @@ from obstaculo import Obstaculo
 from player import Personagem
 from settings import *
 from weapon import Weapon
+from enemies import Inimigo
 from debug import *
 from interface_usuario import Interface_usuario
 
@@ -31,6 +32,8 @@ class Level:
                     Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos])
                 if coluna == 'p':
                     self.personagem = Personagem((x,y), [self.sprites_visiveis], self.sprites_obstaculos, self.criar_ataque)
+                if coluna == 'i':
+                    self.inimigo = Inimigo((x,y), [self.sprites_visiveis], self.sprites_obstaculos, self.criar_ataque)
     
     # criação do ataque
     def criar_ataque(self, type):
