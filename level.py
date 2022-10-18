@@ -2,6 +2,8 @@ import pygame
 from obstaculo import Obstaculo
 from player import Personagem
 from settings import *
+from support import *
+from random import choice
 from weapon import Weapon
 from enemies import Inimigo
 from debug import *
@@ -18,22 +20,40 @@ class Level:
 
         #CONFIGURAÇÃO DE SPRITE
         self.criar_mapa()
+
+    def criar_mapa(self):
+        layouts = { 
+            'boundary': import_csv_layout('map/map_FloorBlocks.csv'),
+            'grass': import_csv_layout('map/map_Grass.csv'),
+            'object': import_csv_layout('map/map_Objects.csv')
+        }
+        graphics = {
+            'grass': import_folder('graphics/Grass'),
+            'objects': import_folder('graphics/objects')
+        }
+        print(graphics)
+
+        #LOOP PRA CONSEGUIR INFORMACOES DAS COORDENADAS
+        for style, layout in layouts.items():
+            for index_linha, linha in enumerate(layout):
+                for index_coluna, coluna in enumerate(linha):
+                    if coluna != '-1':
+                        x = index_coluna * escala
+                        y = index_linha * escala
+                        if style == 'boundary':
+                            Obstaculo((x,y), [self.sprites_obstaculos], 'invisible')
+                        if style == 'grass':
+                            random_grass_image = choice(graphics['grass'])
+                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'grass', random_grass_image)
+                           
+                        if style == 'object':
+                            surf = graphics['objects'][int(coluna)]
+                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos], 'object', surf)
+                            
+        self.personagem = Personagem((2000,1430),[self.sprites_visiveis],self.sprites_obstaculos)
         
         #INTERFACE DO PERSONAGEM.
         self.ui = Interface_usuario()
-
-    def criar_mapa(self):
-        #LOOP PRA CONSEGUIR INFORMACOES DAS COORDENADAS
-        for index_linha, linha in enumerate(mapa):
-            for index_coluna, coluna in enumerate(linha):
-                x = index_coluna * escala
-                y = index_linha * escala
-                if coluna == 'x':
-                    Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos])
-                if coluna == 'p':
-                    self.personagem = Personagem((x,y), [self.sprites_visiveis], self.sprites_obstaculos, self.criar_ataque)
-                if coluna == 'i':
-                    self.inimigo = Inimigo((x,y), [self.sprites_visiveis], self.sprites_obstaculos, self.criar_ataque)
     
     # criação do ataque
     def criar_ataque(self, type):
@@ -46,7 +66,6 @@ class Level:
         self.ui.display(self.personagem)
         debug(self.personagem.status)
 
-
 class YsortGrupoCamera(pygame.sprite.Group):
     def __init__(self):
         super().__init__()
@@ -56,12 +75,20 @@ class YsortGrupoCamera(pygame.sprite.Group):
         self.half_widht = self.superficie_tela.get_size()[0] // 2
         self.half_height = self.superficie_tela.get_size()[1] // 2
         self.offset = pygame.math.Vector2()
-
+        
+        # creating the floor
+        self.floor_surf = pygame.image.load('graphics/tilemap/ground.png')
+        self.floor_rect = self.floor_surf.get_rect(topleft = (0,0))
+        
     def draw_personalizado(self, personagem):
 
         #POSIÇÃO DA CÂMERA
         self.offset.x = personagem.rect.centerx - self.half_widht
         self.offset.y = personagem.rect.centery - self.half_height
+        
+         # drawing the floor
+        floor_offset_pos = self.floor_rect.topleft - self.offset
+        self.superficie_tela.blit(self.floor_surf,floor_offset_pos)
 
         # for sprite in self.sprites():
         for sprite in sorted(self.sprites(), key= lambda sprite: sprite.rect.centery):
