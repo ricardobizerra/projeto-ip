@@ -50,7 +50,7 @@ class Level:
                             surf = graphics['objects'][int(coluna)]
                             Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos], 'object', surf)
                             
-        self.personagem = Personagem((2000,1430),[self.sprites_visiveis],self.sprites_obstaculos)
+        self.personagem = Personagem((2000,1430),[self.sprites_visiveis],self.sprites_obstaculos,self.criar_ataque)
         
         #INTERFACE DO PERSONAGEM.
         self.ui = Interface_usuario()
