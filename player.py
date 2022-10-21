@@ -5,7 +5,7 @@ from support import import_folder
 class Personagem(pygame.sprite.Sprite):
     def __init__(self, pos, grupo_sprite, obstaculo_sprites, criar_ataque):
         super().__init__(grupo_sprite)
-        self.image = pygame.image.load('graphics/personagem/New Piskel.png').convert_alpha()
+        self.image = pygame.image.load('graphics/test/player.png').convert_alpha()
         self.rect =  self.image.get_rect(topleft=pos)
         self.hitbox = self.rect.inflate(0, -26)
         self.superficie_tela = pygame.display.get_surface()
@@ -22,7 +22,11 @@ class Personagem(pygame.sprite.Sprite):
         self.attacking = False
         self.attack_cooldown = 400
         self.attack_time = None
+
+        # armas
         self.criar_ataque = criar_ataque
+        self.weapon_index = 0
+        self.weapon = list(weapon_data.keys())[self.weapon_index]
 
         #STATUS DO PERSONAGEM.
         self.status_saude = {'saude': 100}
@@ -149,6 +153,10 @@ class Personagem(pygame.sprite.Sprite):
         if direcao == 'horizontal':
             for sprite in self.obstaculo_sprites:
                 if sprite.hitbox.colliderect(self.hitbox):
+
+                    # perde vida com colisão                    
+                    self.saude -= 1
+
                     if self.direction.x > 0: #INDO PARA A DIREITA
                         self.hitbox.right = sprite.hitbox.left
                     if self.direction.x < 0: #INDO PARA A ESQUERDA
@@ -157,6 +165,9 @@ class Personagem(pygame.sprite.Sprite):
         if direcao == 'vertical':
             for sprite in self.obstaculo_sprites:
                 if sprite.hitbox.colliderect(self.hitbox):
+
+                    self.saude -= 1
+
                     if self.direction.y > 0: #INDO PARA BAIXO
                         self.hitbox.bottom = sprite.hitbox.top
                     if self.direction.y < 0: #INDO PARA CIMA
