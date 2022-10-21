@@ -21,7 +21,11 @@ class Personagem(pygame.sprite.Sprite):
         self.attacking = False
         self.attack_cooldown = 400
         self.attack_time = None
+
+        # armas
         self.criar_ataque = criar_ataque
+        self.weapon_index = 0
+        self.weapon = list(weapon_data.keys())[self.weapon_index]
 
         #STATUS DO PERSONAGEM.
         self.status_saude = {'saude': 100}

@@ -43,7 +43,7 @@ class Level:
                         if style == 'obstacle':
                             surf = pygame.image.load('graphics/blocks/column_block.png')
                             Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],surf)
-                            
+                      
         self.personagem = Personagem((1300,2500),[self.sprites_visiveis],self.sprites_obstaculos, self.criar_ataque)
         
         #INTERFACE DO PERSONAGEM.
