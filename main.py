@@ -7,7 +7,7 @@ from level import Level
 
 import sys
 
-# import entities
+# import level
 # import os
 
 class Jogo:
