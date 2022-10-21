@@ -20,6 +20,9 @@ class Level:
 
         #CONFIGURAÇÃO DE SPRITE
         self.criar_mapa()
+        
+        #INTERFACE DO PERSONAGEM.
+        self.iu = Interface_usuario()
 
     def criar_mapa(self):
         layouts = { 
@@ -45,9 +48,6 @@ class Level:
                             Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],surf)
                       
         self.personagem = Personagem((1300,2500),[self.sprites_visiveis],self.sprites_obstaculos, self.criar_ataque)
-        
-        #INTERFACE DO PERSONAGEM.
-        self.ui = Interface_usuario()
     
     # criação do ataque
     def criar_ataque(self, type):
@@ -57,8 +57,8 @@ class Level:
         #ATUALIZA E MOSTRA O JOGO
         self.sprites_visiveis.draw_personalizado(self.personagem)
         self.sprites_visiveis.update()
-        self.ui.display(self.personagem)
         debug(self.personagem.status)
+        self.iu.display(self.personagem )
 
 class YsortGrupoCamera(pygame.sprite.Group):
     def __init__(self):
