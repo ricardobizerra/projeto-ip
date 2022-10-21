@@ -23,8 +23,8 @@ class Level:
 
     def criar_mapa(self):
         layouts = { 
-            'boundary': import_csv_layout('map/map_level_1._Boundaries.csv'),
-            'obstacle': import_csv_layout('map/map_level_1._Obstacle.csv')
+            'boundary': import_csv_layout('map/map_Boundaries.csv'),
+            'obstacle': import_csv_layout('map/map_Obstacles.csv')
         }
         graphics = {
             'grass': import_folder('graphics/Grass'),
@@ -44,7 +44,7 @@ class Level:
                             surf = pygame.image.load('graphics/blocks/column_block.png')
                             Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],surf)
                             
-        self.personagem = Personagem((500,500),[self.sprites_visiveis],self.sprites_obstaculos, self.criar_ataque)
+        self.personagem = Personagem((1300,2500),[self.sprites_visiveis],self.sprites_obstaculos, self.criar_ataque)
         
         #INTERFACE DO PERSONAGEM.
         self.ui = Interface_usuario()
@@ -71,7 +71,7 @@ class YsortGrupoCamera(pygame.sprite.Group):
         self.offset = pygame.math.Vector2()
         
         # creating the floor
-        self.floor_surf = pygame.image.load('graphics/tilemap/piso.png')
+        self.floor_surf = pygame.image.load('graphics/tilemap/background_map.png')
         self.floor_rect = self.floor_surf.get_rect(topleft = (0,0))
         
     def draw_personalizado(self, personagem):
