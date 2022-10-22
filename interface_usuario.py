@@ -39,5 +39,5 @@ class Interface_usuario:
         pygame.draw.rect(self.superficie_tela, '#000000', retangulo_display_vida)
         self.superficie_tela.blit(superficie_display_vida, retangulo_display_vida)
  
-    def display(self,jogador): #Esse método busca fazer o méotodo anterior exibir a barra de vida construídda por ele.
+    def display(self,jogador): #Esse método busca fazer o méotodo anterior exibir a barra de vida construída por ele.
         self.mostrar_barra_vida(jogador.saude,jogador.status_saude['saude'], self.barra_vida_rect, cor_barra_vida) 
