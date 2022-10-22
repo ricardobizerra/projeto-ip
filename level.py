@@ -51,7 +51,7 @@ class Level:
     
     # criação do ataque
     def criar_ataque(self, type):
-        Weapon(self.personagem, [self.sprites_visiveis], type)
+        Weapon(self.personagem, [self.sprites_visiveis], type, self.sprites_obstaculos)
 
     def run(self):
         #ATUALIZA E MOSTRA O JOGO

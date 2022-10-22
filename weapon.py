@@ -3,7 +3,7 @@ from settings import *
 
 class Weapon(pygame.sprite.Sprite):
 
-    def __init__(self, player, groups, type):
+    def __init__(self, player, groups, type, obstaculo_sprites):
         super().__init__(groups)
         self.attack_direction = player.status.split('_')[1]
 
@@ -32,8 +32,11 @@ class Weapon(pygame.sprite.Sprite):
         self.direction = pygame.math.Vector2()
         self.speed = 20
 
-        # colisão
+        # hitbox
         self.hitbox = self.rect.inflate(0,-10)
+
+        #COLISÃO
+        self.obstaculo_sprites = obstaculo_sprites
     
     def input(self):
 
@@ -57,7 +60,14 @@ class Weapon(pygame.sprite.Sprite):
         self.hitbox.x += self.direction.x * speed
         self.hitbox.y += self.direction.y * speed
         self.rect.center = self.hitbox.center
+
+        self.colisao()
     
+    def colisao(self):
+        for sprite in self.obstaculo_sprites:
+            if sprite.hitbox.colliderect(self.hitbox):
+                self.kill()
+
     def update(self):
         self.input()
         self.move(self.speed)
