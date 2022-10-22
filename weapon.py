@@ -30,7 +30,7 @@ class Weapon(pygame.sprite.Sprite):
         
         # movimentação
         self.direction = pygame.math.Vector2()
-        self.speed = 5
+        self.speed = 20
 
         # colisão
         self.hitbox = self.rect.inflate(0,-10)

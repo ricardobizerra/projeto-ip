@@ -153,10 +153,6 @@ class Personagem(pygame.sprite.Sprite):
         if direcao == 'horizontal':
             for sprite in self.obstaculo_sprites:
                 if sprite.hitbox.colliderect(self.hitbox):
-
-                    # perde vida com colisão                    
-                    self.saude -= 1
-
                     if self.direction.x > 0: #INDO PARA A DIREITA
                         self.hitbox.right = sprite.hitbox.left
                     if self.direction.x < 0: #INDO PARA A ESQUERDA
@@ -165,9 +161,6 @@ class Personagem(pygame.sprite.Sprite):
         if direcao == 'vertical':
             for sprite in self.obstaculo_sprites:
                 if sprite.hitbox.colliderect(self.hitbox):
-
-                    self.saude -= 1
-
                     if self.direction.y > 0: #INDO PARA BAIXO
                         self.hitbox.bottom = sprite.hitbox.top
                     if self.direction.y < 0: #INDO PARA CIMA

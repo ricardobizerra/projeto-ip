@@ -5,7 +5,7 @@ class Interface_usuario():
     def __init__(self):
         self.display_superficie = pygame.display.get_surface()
         self.font = pygame.font.Font(interface_fonte, tamanho_fonte_interface)
-        self.retangulo_barra_saude = pygame.Rect(10,10,largura_barra_vida,altura_barra_vida)  
+        self.retangulo_barra_saude = pygame.Rect(10,30,largura_barra_vida,altura_barra_vida)  
 
 
     def mostrar_barra(self,vida_atual,qnt_max,retangulo_fundo,cor):
@@ -19,6 +19,11 @@ class Interface_usuario():
         pygame.draw.rect(self.display_superficie,cor,retangulo_atual)
         pygame.draw.rect(self.display_superficie,cor_bordas_interface,retangulo_atual,4)
 
+        # display da quantidade de vida atualizada
+        superficie_display_vida = self.font.render(f'Vida: {str(vida_atual)}', True, 'White')
+        retangulo_display_vida = superficie_display_vida.get_rect(topleft=(10, 10))
+        pygame.draw.rect(self.display_superficie, '#000000', retangulo_display_vida)
+        self.display_superficie.blit(superficie_display_vida, retangulo_display_vida)
 
     def display(self, personagem):
         self.mostrar_barra(personagem.saude_atual, personagem.status_saude['saude'],self.retangulo_barra_saude, cor_barra_vida)
