@@ -62,9 +62,6 @@ class Level:
         #INTERFACE DO PERSONAGEM.
         self.ui = Interface_usuario()
 
-        # Desenho do personagem no início
-        self.personagem = Personagem((1300,2500),[self.sprites_visiveis],self.sprites_obstaculos, self.criar_ataque, 0, False)
-
         # Coletáveis no início
         self.bolinha_item1 = coletaveis((1600, 2500), 'bola', [self.sprites_visiveis], self.sprites_obstaculos)
         self.bolinha_item2 = coletaveis((2000, 3000), 'bola', [self.sprites_visiveis], self.sprites_obstaculos)

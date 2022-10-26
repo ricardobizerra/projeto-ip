@@ -3,7 +3,7 @@ from settings import *
 from support import import_folder
 
 class Personagem(pygame.sprite.Sprite):
-    def __init__(self, pos, grupo_sprite, obstaculo_sprites, criar_ataque, n_bolas, raquete):
+    def __init__(self, pos, grupo_sprite, obstaculo_sprites, criar_ataque):
         super().__init__(grupo_sprite)
         self.image = pygame.image.load('graphics/test/player.png').convert_alpha()
         self.rect =  self.image.get_rect(topleft=pos)
