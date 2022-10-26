@@ -25,5 +25,30 @@ class Interface_usuario():
         pygame.draw.rect(self.display_superficie, '#000000', retangulo_display_vida)
         self.display_superficie.blit(superficie_display_vida, retangulo_display_vida)
 
+    def desenho_bola(self):
+        superficie_des_bola = pygame.image.load('graphics/coletaveis/bola_item/full.png')
+        des_bola_rect = superficie_des_bola.get_rect(topleft=(10,90))
+        self.display_superficie.blit(superficie_des_bola, des_bola_rect)
+
+    def inventario_bolas(self, inventario):
+        superficie_inventario = self.font.render(f"{str(inventario['bola'])}", True, 'White')
+        inventario_rect = superficie_inventario.get_rect(topleft=(30, 90))
+        self.display_superficie.blit(superficie_inventario, inventario_rect)
+
+    def desenho_raquete(self):
+        superficie_des_raquete = pygame.image.load('graphics/coletaveis/raquete_item/full.png')
+        des_raquete_rect = superficie_des_raquete.get_rect(topleft=(10, 113))
+        self.display_superficie.blit(superficie_des_raquete, des_raquete_rect)
+    def inventario_raquetes(self, inventario):
+        superficie_inventario = self.font.render('possui', True, 'White')
+        inventario_rect = superficie_inventario.get_rect(topleft=(40, 130))
+        self.display_superficie.blit(superficie_inventario, inventario_rect)
+
     def display(self, personagem):
         self.mostrar_barra(personagem.saude_atual, personagem.status_saude['saude'],self.retangulo_barra_saude, cor_barra_vida)
+        if personagem.inventario['bola'] > 0:
+            self.desenho_bola()
+            self.inventario_bolas(personagem.inventario)
+        if personagem.inventario["raquete"] == 1:
+            self.desenho_raquete()
+            self.inventario_raquetes(personagem.inventario)
