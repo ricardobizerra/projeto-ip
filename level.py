@@ -8,6 +8,7 @@ from weapon import Weapon
 from enemies import Inimigo
 from debug import *
 from interface_usuario import Interface_usuario
+from coletaveis import *
 
 class Level:
     def __init__(self):
@@ -46,19 +47,40 @@ class Level:
                         if style == 'obstacle':
                             surf = pygame.image.load('graphics/blocks/column_block.png')
                             Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],surf)
-                      
-        self.personagem = Personagem((1300,2500),[self.sprites_visiveis],self.sprites_obstaculos, self.criar_ataque)
-    
+
+        # Desenho do personagem no início
+        self.personagem = Personagem((1300,2500),[self.sprites_visiveis],self.sprites_obstaculos, self.criar_ataque, 0, False)
+
+        # Coletáveis no início
+        self.bolinha_item1 = coletaveis((1600, 2500), 'bola', [self.sprites_visiveis], self.sprites_obstaculos)
+        self.bolinha_item2 = coletaveis((2000, 3000), 'bola', [self.sprites_visiveis], self.sprites_obstaculos)
+        self.bolinha_item3 = coletaveis((1950, 2320), 'bola', [self.sprites_visiveis], self.sprites_obstaculos)
+        self.bolinha_item4 = coletaveis((1240, 2930), 'bola', [self.sprites_visiveis], self.sprites_obstaculos)
+        self.bolinha_item5 = coletaveis((2428, 1980), 'bola', [self.sprites_visiveis], self.sprites_obstaculos)
+        self.raquete_item = coletaveis((1600, 2000),'raquete', [self.sprites_visiveis], self.sprites_obstaculos)
+
     # criação do ataque
     def criar_ataque(self, type):
-        Weapon(self.personagem, [self.sprites_visiveis], type, self.sprites_obstaculos)
+        if self.personagem.inventario[type] > 0:
+            Weapon(self.personagem, [self.sprites_visiveis], type, self.sprites_obstaculos)
+            if type == 'bola':
+                self.personagem.inventario['bola'] -= 1
 
     def run(self):
         #ATUALIZA E MOSTRA O JOGO
         self.sprites_visiveis.draw_personalizado(self.personagem)
         self.sprites_visiveis.update()
+
+        #Fazendo os coletáveis sumirem
+        self.bolinha_item1.apagar_col(self.personagem)
+        self.bolinha_item2.apagar_col(self.personagem)
+        self.bolinha_item3.apagar_col(self.personagem)
+        self.bolinha_item4.apagar_col(self.personagem)
+        self.bolinha_item5.apagar_col(self.personagem)
+        self.raquete_item.apagar_col(self.personagem)
+
         debug(self.personagem.status)
-        self.iu.display(self.personagem )
+        self.iu.display(self.personagem)
 
 class YsortGrupoCamera(pygame.sprite.Group):
     def __init__(self):

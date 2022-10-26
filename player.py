@@ -3,7 +3,7 @@ from settings import *
 from support import import_folder
 
 class Personagem(pygame.sprite.Sprite):
-    def __init__(self, pos, grupo_sprite, obstaculo_sprites, criar_ataque):
+    def __init__(self, pos, grupo_sprite, obstaculo_sprites, criar_ataque, n_bolas, raquete):
         super().__init__(grupo_sprite)
         self.image = pygame.image.load('graphics/test/player.png').convert_alpha()
         self.rect =  self.image.get_rect(topleft=pos)
@@ -28,10 +28,15 @@ class Personagem(pygame.sprite.Sprite):
         self.weapon_index = 0
         self.weapon = list(weapon_data.keys())[self.weapon_index]
 
+        # Inventário:
+        self.inventario = {
+            'bola': 0, 'raquete': 0
+        }
+
         #STATUS DO PERSONAGEM.
         self.status_saude = {'saude': 100}
         self.saude_atual = self.status_saude['saude']
-        self.razao = self.saude_atual / largura_barra_vida 
+        self.razao = self.saude_atual / largura_barra_vida
 
         #COLISÃO
         self.obstaculo_sprites = obstaculo_sprites
