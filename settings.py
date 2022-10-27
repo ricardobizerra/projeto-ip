@@ -32,3 +32,6 @@ weapon_data = {
         'graphic': 'graphics/personagem/bola-azul.png'
     }
 }
+
+# dicionario de inimigos.
+

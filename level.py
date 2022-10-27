@@ -94,3 +94,5 @@ class YsortGrupoCamera(pygame.sprite.Group):
         for sprite in sorted(self.sprites(), key= lambda sprite: sprite.rect.centery):
             offset_pos = sprite.rect.topleft - self.offset
             self.superficie_tela.blit(sprite.image,offset_pos)
+
+    
