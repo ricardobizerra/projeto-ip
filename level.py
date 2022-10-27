@@ -1,3 +1,4 @@
+from curses import noecho
 import pygame
 from obstaculo import Obstaculo
 from player import Personagem
@@ -17,6 +18,11 @@ class Level:
         #GRUPOS DE DE CONFIGURAÇÕES DE  SPRITES
         self.sprites_visiveis = YsortGrupoCamera()
         self.sprites_obstaculos = pygame.sprite.Group()
+
+        #Attack sprites.
+        self.ataque_atual = None 
+        self.sprites_ataque = pygame.sprite.Group()
+        self.sprites_atacaveis = pygame.sprite.Group()
 
         #CONFIGURAÇÃO DE SPRITE
         self.criar_mapa()
