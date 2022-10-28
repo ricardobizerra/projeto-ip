@@ -1,4 +1,4 @@
-from curses import noecho
+# from curses import noecho
 import pygame
 from obstaculo import Obstaculo
 from player import Personagem

@@ -12,7 +12,7 @@ class Interface_usuario():
         self.fonte = pygame.font.Font(None, tamanho_fonte_interface)
 
         #Configurações da barra. (Aqui eu estou posicionando a barra de vida na tela, além de definir a sua altura e largura)
-        self.barra_vida_rect = pygame.Rect(10, 30, barra_vida_largura, altura_barra_vida)
+        self.barra_vida_rect = pygame.Rect(10, 30, largura_barra_vida, altura_barra_vida)
 
         #Convertendo o dicionario de armas para uma lista.
         self.lista_imagem_armas = []
@@ -21,9 +21,7 @@ class Interface_usuario():
             arma = pygame.image.load(path).convert_alpha()
             self.lista_imagem_armas.append(arma)
 
-    def mostrar_barra_vida(self,qnt_vida_atual, max_vida, fundo_barra_rect, cor): #Esse método busca construir a barra de vida.
-
-    def mostrar_barra(self,vida_atual,qnt_max,retangulo_fundo,cor):
+    def mostrar_barra_vida(self,vida_atual,qnt_max,retangulo_fundo,cor):
         pygame.draw.rect(self.display_superficie,cor_backgorund_interface,retangulo_fundo)
 
         razao = vida_atual / qnt_max
@@ -75,13 +73,12 @@ class Interface_usuario():
         self.display_superficie.blit(superficie_inventario, inventario_rect)
 
     def display(self, personagem):
-        self.mostrar_barra(personagem.saude_atual, personagem.status_saude['saude'],self.retangulo_barra_saude, cor_barra_vida)
         if personagem.inventario['bola'] > 0:
             self.desenho_bola()
             self.inventario_bolas(personagem.inventario)
         if personagem.inventario["raquete"] == 1:
             self.desenho_raquete()
             self.inventario_raquetes(personagem.inventario)
-        self.mostrar_barra_vida(personagem.saude,personagem.status_saude['saude'], self.barra_vida_rect, cor_barra_vida) 
+        self.mostrar_barra_vida(personagem.saude_atual,personagem.status_saude['saude'], self.barra_vida_rect, cor_barra_vida) 
         self.caixa_selecao(10,610)
         self.mostrar_arma_caixa(personagem.weapon_index)
