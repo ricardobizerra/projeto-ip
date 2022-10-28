@@ -32,3 +32,6 @@ weapon_data = {
         'graphic': 'graphics/weapons/bola/full.png'
     }
 }
+
+# dicionario de inimigos.
+
