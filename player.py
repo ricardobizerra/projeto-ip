@@ -30,7 +30,7 @@ class Personagem(pygame.sprite.Sprite):
 
         # Inventário:
         self.inventario = {
-            'bola': 0, 'raquete': 0
+            'bola': 0, 'raquete': 0, 'coxinha': 0
         }
 
         #STATUS DO PERSONAGEM.
@@ -114,6 +114,14 @@ class Personagem(pygame.sprite.Sprite):
                 self.attacking = True
                 self.attack_time = pygame.time.get_ticks()
                 self.criar_ataque('bola')
+
+            if keys[pygame.K_2]:
+                if self.inventario['coxinha'] > 0 and self.saude_atual < 100:
+                    self.inventario['coxinha'] -= 1
+                    if self.saude_atual <= 50:
+                        self.saude_atual += 50
+                    else:
+                        self.saude_atual = 100
 
     # estados do jogador
     def get_status(self):

@@ -55,27 +55,37 @@ class Interface_usuario():
 
     def desenho_bola(self):
         superficie_des_bola = pygame.image.load('graphics/coletaveis/bola_item/full.png')
-        des_bola_rect = superficie_des_bola.get_rect(topleft=(10,90))
+        des_bola_rect = superficie_des_bola.get_rect(topleft=(15,90))
         self.display_superficie.blit(superficie_des_bola, des_bola_rect)
 
     def inventario_bolas(self, inventario):
-        superficie_inventario = self.font.render(f"{str(inventario['bola'])}", True, 'White')
-        inventario_rect = superficie_inventario.get_rect(topleft=(30, 90))
+        superficie_inventario = self.font.render(f"{str(inventario['bola'])}", True, 'Black')
+        inventario_rect = superficie_inventario.get_rect(topleft=(35, 90))
         self.display_superficie.blit(superficie_inventario, inventario_rect)
 
     def desenho_raquete(self):
         superficie_des_raquete = pygame.image.load('graphics/coletaveis/raquete_item/full.png')
-        des_raquete_rect = superficie_des_raquete.get_rect(topleft=(10, 113))
+        des_raquete_rect = superficie_des_raquete.get_rect(topleft=(10, 153))
         self.display_superficie.blit(superficie_des_raquete, des_raquete_rect)
     def inventario_raquetes(self, inventario):
-        superficie_inventario = self.font.render('possui', True, 'White')
-        inventario_rect = superficie_inventario.get_rect(topleft=(40, 130))
+        superficie_inventario = self.font.render('possui', True, 'Black')
+        inventario_rect = superficie_inventario.get_rect(topleft=(40, 150))
         self.display_superficie.blit(superficie_inventario, inventario_rect)
 
+    def desenho_coxinha(self):
+        superficie_des_coxinha = pygame.image.load(('graphics/coletaveis/coxinha_item/full.png'))
+        des_coxinha_rect = superficie_des_coxinha.get_rect(topleft=(-10, 110))
+        self.display_superficie.blit(superficie_des_coxinha, des_coxinha_rect)
+
+    def inventario_coxinhas(self, inventario):
+        superficie_inventario = self.font.render(f"{str(inventario['coxinha'])}", True, 'Black')
+        inventario_rect = superficie_inventario.get_rect(topleft=(40, 120))
+        self.display_superficie.blit(superficie_inventario, inventario_rect)
     def display(self, personagem):
-        if personagem.inventario['bola'] > 0:
-            self.desenho_bola()
-            self.inventario_bolas(personagem.inventario)
+        self.desenho_bola()
+        self.inventario_bolas(personagem.inventario)
+        self.desenho_coxinha()
+        self.inventario_coxinhas(personagem.inventario)
         if personagem.inventario["raquete"] == 1:
             self.desenho_raquete()
             self.inventario_raquetes(personagem.inventario)

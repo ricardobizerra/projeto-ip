@@ -69,13 +69,14 @@ class Level:
         self.ui = Interface_usuario()
 
         # Coletáveis no início
-        self.bolinha_item1 = coletaveis((1600, 2500), 'bola', [self.sprites_visiveis], self.sprites_obstaculos)
-        self.bolinha_item2 = coletaveis((2000, 3000), 'bola', [self.sprites_visiveis], self.sprites_obstaculos)
-        self.bolinha_item3 = coletaveis((1950, 2320), 'bola', [self.sprites_visiveis], self.sprites_obstaculos)
-        self.bolinha_item4 = coletaveis((1240, 2930), 'bola', [self.sprites_visiveis], self.sprites_obstaculos)
-        self.bolinha_item5 = coletaveis((2428, 1980), 'bola', [self.sprites_visiveis], self.sprites_obstaculos)
-        self.raquete_item = coletaveis((1600, 2000),'raquete', [self.sprites_visiveis], self.sprites_obstaculos)
-
+        self.bolinha_item1 = coletaveis((2210, 2730), 'bola', [self.sprites_visiveis], self.sprites_obstaculos)
+        self.bolinha_item2 = coletaveis((2700, 1050), 'bola', [self.sprites_visiveis], self.sprites_obstaculos)
+        self.bolinha_item3 = coletaveis((1100, 700), 'bola', [self.sprites_visiveis], self.sprites_obstaculos)
+        self.bolinha_item4 = coletaveis((1520, 3000), 'bola', [self.sprites_visiveis], self.sprites_obstaculos)
+        self.bolinha_item5 = coletaveis((2428, 1480), 'bola', [self.sprites_visiveis], self.sprites_obstaculos)
+        self.raquete_item = coletaveis((2000, 2000),'raquete', [self.sprites_visiveis], self.sprites_obstaculos)
+        self.coxinha_item1 = coletaveis((2300, 2500), 'coxinha', [self.sprites_visiveis], self.sprites_obstaculos)
+        self.coxinha_item2 = coletaveis((2500, 2700), 'coxinha', [self.sprites_visiveis], self.sprites_obstaculos)
     # criação do ataque
     def criar_ataque(self, type):
         if self.personagem.inventario[type] > 0:
@@ -95,6 +96,9 @@ class Level:
         self.bolinha_item4.apagar_col(self.personagem)
         self.bolinha_item5.apagar_col(self.personagem)
         self.raquete_item.apagar_col(self.personagem)
+        self.coxinha_item1.apagar_col(self.personagem)
+        self.coxinha_item2.apagar_col(self.personagem)
+
 
         debug(self.personagem.status)
         self.iu.display(self.personagem)
