@@ -69,12 +69,12 @@ class Interface_usuario():
         self.display_superficie.blit(superficie_des_raquete, des_raquete_rect)
     def inventario_raquetes(self, inventario):
         superficie_inventario = self.font.render('possui', True, 'Black')
-        inventario_rect = superficie_inventario.get_rect(topleft=(40, 150))
+        inventario_rect = superficie_inventario.get_rect(topleft=(40, 165))
         self.display_superficie.blit(superficie_inventario, inventario_rect)
 
     def desenho_coxinha(self):
         superficie_des_coxinha = pygame.image.load(('graphics/coletaveis/coxinha_item/full.png'))
-        des_coxinha_rect = superficie_des_coxinha.get_rect(topleft=(-10, 110))
+        des_coxinha_rect = superficie_des_coxinha.get_rect(topleft=(10, 110))
         self.display_superficie.blit(superficie_des_coxinha, des_coxinha_rect)
 
     def inventario_coxinhas(self, inventario):

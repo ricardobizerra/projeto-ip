@@ -6,12 +6,12 @@ from level import *
 
 
 
-class coletaveis(pygame.sprite.Sprite):
+class Coletaveis(pygame.sprite.Sprite):
     def __init__(self, pos, coletavel, grupo_sprite, player_rect):
         super().__init__(grupo_sprite)
         self.image = pygame.image.load(f'graphics/coletaveis/{coletavel}_item/full.png').convert_alpha()
         self.rect = self.image.get_rect(topleft=pos)
-        self.hitbox = self.rect.inflate(0, -26)
+        self.hitbox = self.rect.inflate(0, -10)
         self.superficie_tela = pygame.display.get_surface()
         self.coletavel = coletavel
         self.colidiu = False
