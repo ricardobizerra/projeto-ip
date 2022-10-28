@@ -3,11 +3,12 @@ from settings import *
 from support import import_folder
 
 class Personagem(pygame.sprite.Sprite):
-    def __init__(self, pos, grupo_sprite, obstaculo_sprites, criar_ataque):
+    def __init__(self, pos, grupo_sprite, obstaculo_sprites, criar_ataque, n_bolas, raquete):
         super().__init__(grupo_sprite)
         self.image = pygame.image.load('graphics/test/player.png').convert_alpha()
         self.rect =  self.image.get_rect(topleft=pos)
         self.hitbox = self.rect.inflate(0, -26)
+        self.superficie_tela = pygame.display.get_surface()
 
         # setup gráfico
         self.import_player_assets()
@@ -27,12 +28,32 @@ class Personagem(pygame.sprite.Sprite):
         self.weapon_index = 0
         self.weapon = list(weapon_data.keys())[self.weapon_index]
 
+        # Inventário:
+        self.inventario = {
+            'bola': 0, 'raquete': 0
+        }
+
         #STATUS DO PERSONAGEM.
         self.status_saude = {'saude': 100}
-        self.saude = self.status_saude['saude']
+        self.saude_atual = self.status_saude['saude']
+        self.razao = self.saude_atual / largura_barra_vida
 
         #COLISÃO
         self.obstaculo_sprites = obstaculo_sprites
+    
+    #METODO PARA LEVAR DANO
+    def levar_dano(self, dano):
+        if self.saude_atual > 0:
+            self.saude_atual -= dano 
+        elif self.saude_atual <= 0:
+            self.saude_atual = 0 #Aqui o personagem morre
+
+    #METODO PARA RECUPERAR VIDA.
+    def curar(self, cura):
+        if self.saude_atual < self.status_saude['saude']:
+            self.saude_atual += cura
+        elif self.saude_atual >= self.status_saude['saude']:
+            self.saude_atual = self.status_saude['saude']
     
     # "unir" estados do jogador com pastas de imagens para animação
     def import_player_assets(self):
@@ -66,9 +87,11 @@ class Personagem(pygame.sprite.Sprite):
             if keys[pygame.K_UP] or keys[pygame.K_w]:
                 self.direction.y = -1
                 self.status = 'normal_up'
+                self.levar_dano(1)
             elif keys[pygame.K_DOWN] or keys[pygame.K_s]:
                 self.direction.y = 1
                 self.status = 'normal_down'
+                self.curar(1)
             else:
                 self.direction.y = 0
 
@@ -135,10 +158,6 @@ class Personagem(pygame.sprite.Sprite):
         if direcao == 'horizontal':
             for sprite in self.obstaculo_sprites:
                 if sprite.hitbox.colliderect(self.hitbox):
-
-                    # perde vida com colisão                    
-                    self.saude -= 1
-
                     if self.direction.x > 0: #INDO PARA A DIREITA
                         self.hitbox.right = sprite.hitbox.left
                     if self.direction.x < 0: #INDO PARA A ESQUERDA
@@ -147,9 +166,6 @@ class Personagem(pygame.sprite.Sprite):
         if direcao == 'vertical':
             for sprite in self.obstaculo_sprites:
                 if sprite.hitbox.colliderect(self.hitbox):
-
-                    self.saude -= 1
-
                     if self.direction.y > 0: #INDO PARA BAIXO
                         self.hitbox.bottom = sprite.hitbox.top
                     if self.direction.y < 0: #INDO PARA CIMA

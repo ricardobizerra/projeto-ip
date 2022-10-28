@@ -6,7 +6,7 @@ escala = 64   #64 PIXELS POR BLOCO (CONFIG PADRAO PARA JOGOS NESSE ESTILO)
 
 #Interface de usuário.
 altura_barra_vida = 20 
-barra_vida_largura = 200
+largura_barra_vida = 200
 interface_fonte = None
 tamanho_fonte_interface = 24
 

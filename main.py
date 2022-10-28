@@ -1,4 +1,4 @@
-## aqui fica a parte de import de bibliotecas externas (e dos outros arquivos do projeto)
+ ## aqui fica a parte de import de bibliotecas externas (e dos outros arquivos do projeto)
 import pygame.display
 
 from settings import *
