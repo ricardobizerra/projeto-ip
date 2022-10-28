@@ -56,9 +56,9 @@ class Personagem(pygame.sprite.Sprite):
 
     #METODO PARA RECUPERAR VIDA.
     def curar(self, cura):
-        if self.saude_atual < self.status_saude['saude']:
+        if self.saude_atual + cura < self.status_saude['saude']:
             self.saude_atual += cura
-        elif self.saude_atual >= self.status_saude['saude']:
+        else:
             self.saude_atual = self.status_saude['saude']
     
     # "unir" estados do jogador com pastas de imagens para animação
