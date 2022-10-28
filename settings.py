@@ -24,11 +24,11 @@ weapon_data = {
     'raquete': {
         'cooldown': 100,
         'dano': 20,
-        'graphic': 'graphics/personagem/raquete-cin-1.png'
+        'graphic': 'graphics/weapons/raquete/full.png'
     },
     'bola': {
         'cooldown': 25,
         'dano': 2,
-        'graphic': 'graphics/personagem/bola-azul.png'
+        'graphic': 'graphics/weapons/bola/full.png'
     }
 }
