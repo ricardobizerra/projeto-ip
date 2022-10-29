@@ -18,8 +18,8 @@ class Personagem(pygame.sprite.Sprite):
 
         #MOVIMENTO DO PLAYER
         self.direction = pygame.math.Vector2()
-        self.speed = 8
-
+        self.speed = 10
+        
         # varáveis de cooldown
         self.attacking = False
         self.attack_cooldown = 400

@@ -49,24 +49,30 @@ class Level:
                         x = index_coluna * escala
                         y = index_linha * escala
                         if style == 'boundary':
-                            Obstaculo((x,y), [self.sprites_obstaculos])       
+                            Obstaculo((x,y), [self.sprites_obstaculos], 'none')       
+                        if style == 'obstacle' and coluna == '11':
+                                surf = pygame.image.load('graphics/objects/12.png')
+                        if style == 'obstacle' and coluna == '12':
+                            surf = pygame.image.load('graphics/objects/04.png')
+                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'object',surf)
+                        if style == 'obstacle' and coluna == '13':
+                            surf = pygame.image.load('graphics/objects/03.png')
+                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'object',surf)
                         if style == 'obstacle':
                             if coluna == '2':
                                 surf = pygame.image.load('graphics/blocks/boundary_block.png')
                             elif coluna == '4':
                                 surf = pygame.image.load('graphics/blocks/red_block.png')
-                            elif coluna == '10':
-                                surf = pygame.image.load('graphics/blocks/cin_wall.png')
-                            elif coluna == '8':
-                                surf = pygame.image.load('graphics/blocks/column_block.png')
-                            elif coluna == '9':
-                                surf = pygame.image.load('graphics/blocks/wall_block.png')
-                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],surf)
+                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'none',surf)
                             
-        self.personagem = Personagem((2500,2500),[self.sprites_visiveis],self.sprites_obstaculos, self.criar_ataque)
         
         #INTERFACE DO PERSONAGEM.
         self.ui = Interface_usuario()
+
+
+        # Desenho do personagem no início
+        self.personagem = Personagem((2500,5000),[self.sprites_visiveis],self.sprites_obstaculos, self.criar_ataque, 0, False)
+
 
         # Coletáveis no início
         self.bolinha_item1 = Coletaveis((2210, 2730), 'bola', [self.sprites_visiveis], self.sprites_obstaculos)
@@ -114,7 +120,7 @@ class YsortGrupoCamera(pygame.sprite.Group):
         self.offset = pygame.math.Vector2()
         
         # creating the floor
-        self.floor_surf = pygame.image.load('graphics/tilemap/piso.png')
+        self.floor_surf = pygame.image.load('graphics/tilemap/map.png')
         self.floor_rect = self.floor_surf.get_rect(topleft = (0,0))
         
     def draw_personalizado(self, personagem):
