@@ -6,12 +6,12 @@ from level import *
 
 
 
-class coletaveis(pygame.sprite.Sprite):
+class Coletaveis(pygame.sprite.Sprite):
     def __init__(self, pos, coletavel, grupo_sprite, player_rect):
         super().__init__(grupo_sprite)
         self.image = pygame.image.load(f'graphics/coletaveis/{coletavel}_item/full.png').convert_alpha()
         self.rect = self.image.get_rect(topleft=pos)
-        self.hitbox = self.rect.inflate(0, -26)
+        self.hitbox = self.rect.inflate(0, -10)
         self.superficie_tela = pygame.display.get_surface()
         self.coletavel = coletavel
         self.colidiu = False
@@ -21,9 +21,10 @@ class coletaveis(pygame.sprite.Sprite):
             self.kill()
             self.colidiu = True
             if coletavel == 'bola':
-                inventario['bola'] += 1
+                inventario['bola'] += 5
             elif coletavel == 'raquete':
                 inventario['raquete'] = 1
-
+            elif coletavel == 'coxinha':
+                inventario['coxinha'] += 1
     def apagar_col(self, personagem):
         self.colisao_col(self.hitbox, personagem.hitbox, self.coletavel, personagem.inventario)

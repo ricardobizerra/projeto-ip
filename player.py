@@ -3,7 +3,7 @@ from settings import *
 from support import import_folder
 
 class Personagem(pygame.sprite.Sprite):
-    def __init__(self, pos, grupo_sprite, obstaculo_sprites, criar_ataque, n_bolas, raquete):
+    def __init__(self, pos, grupo_sprite, obstaculo_sprites, criar_ataque):
         super().__init__(grupo_sprite)
         self.image = pygame.image.load('graphics/test/player.png').convert_alpha()
         self.rect =  self.image.get_rect(topleft=pos)
@@ -19,9 +19,15 @@ class Personagem(pygame.sprite.Sprite):
         #MOVIMENTO DO PLAYER
         self.direction = pygame.math.Vector2()
         self.speed = 10
+        
+        # varáveis de cooldown
         self.attacking = False
         self.attack_cooldown = 400
         self.attack_time = None
+
+        self.comendo = False
+        self.comendo_time = None
+        self.comendo_cooldown = 1000
 
         # armas
         self.criar_ataque = criar_ataque
@@ -30,7 +36,7 @@ class Personagem(pygame.sprite.Sprite):
 
         # Inventário:
         self.inventario = {
-            'bola': 0, 'raquete': 0
+            'bola': 0, 'raquete': 0, 'coxinha': 0
         }
 
         #STATUS DO PERSONAGEM.
@@ -50,9 +56,9 @@ class Personagem(pygame.sprite.Sprite):
 
     #METODO PARA RECUPERAR VIDA.
     def curar(self, cura):
-        if self.saude_atual < self.status_saude['saude']:
+        if self.saude_atual + cura < self.status_saude['saude']:
             self.saude_atual += cura
-        elif self.saude_atual >= self.status_saude['saude']:
+        else:
             self.saude_atual = self.status_saude['saude']
     
     # "unir" estados do jogador com pastas de imagens para animação
@@ -80,7 +86,7 @@ class Personagem(pygame.sprite.Sprite):
     #DETECTAR AS TECLAS DO TECLADO
     def input(self):
 
-        if not self.attacking:
+        if not self.attacking and not self.comendo:
             keys = pygame.key.get_pressed()
 
             # input de movimento
@@ -114,6 +120,13 @@ class Personagem(pygame.sprite.Sprite):
                 self.attacking = True
                 self.attack_time = pygame.time.get_ticks()
                 self.criar_ataque('bola')
+
+            if keys[pygame.K_2]:
+                self.comendo = True
+                self.comendo_time = pygame.time.get_ticks()
+                if self.inventario['coxinha'] > 0 and self.saude_atual < 100:
+                    self.inventario['coxinha'] -= 1
+                    self.curar(50)
 
     # estados do jogador
     def get_status(self):
@@ -178,6 +191,10 @@ class Personagem(pygame.sprite.Sprite):
         if self.attacking:
             if current_time - self.attack_time >= self.attack_cooldown:
                 self.attacking = False
+        
+        if self.comendo:
+            if current_time - self.comendo_time >= self.comendo_cooldown:
+                self.comendo = False
 
     # animação de jogador
     def animate(self):
