@@ -71,7 +71,7 @@ class Level:
 
 
         # Desenho do personagem no início
-        self.personagem = Personagem((2500,5000),[self.sprites_visiveis],self.sprites_obstaculos, self.criar_ataque, 0, False)
+        self.personagem = Personagem((2500,5000),[self.sprites_visiveis],self.sprites_obstaculos, self.criar_ataque)
 
 
         # Coletáveis no início
