@@ -63,6 +63,12 @@ class Level:
                                 surf = pygame.image.load('graphics/blocks/boundary_block.png')
                             elif coluna == '4':
                                 surf = pygame.image.load('graphics/blocks/red_block.png')
+                            elif coluna == '9':
+                                surf = pygame.image.load('graphics/blocks/wall_block.png')
+                            elif coluna == '16':
+                                surf = pygame.image.load('graphics/spritespiskel/catraca.png')
+                            elif coluna == '18':
+                                surf = pygame.image.load('graphics/spritespiskel/mesa.png')
                             Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'none',surf)
                             
         
