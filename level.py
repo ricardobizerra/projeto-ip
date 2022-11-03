@@ -35,7 +35,7 @@ class Level:
         layouts = { 
             'boundary': import_csv_layout('map/map_Boundaries.csv'),
             'obstacle': import_csv_layout('map/map_Obstacles.csv'),
-            'entity' : import_csv_layout('map/map_Entities.csv')
+            'entities' : import_csv_layout('map/map_Entities.csv')
         }   
         graphics = {
             'grass': import_folder('graphics/Grass'),
@@ -69,10 +69,7 @@ class Level:
                             if coluna == '0':
                                 self.personagem = Personagem((2500,5000),[self.sprites_visiveis],self.sprites_obstaculos, self.criar_ataque)
 
-                            
-        
-        #INTERFACE DO PERSONAGEM.
-        self.ui = Interface_usuario()
+
 
 
         # Desenho do personagem no início
