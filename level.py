@@ -83,6 +83,11 @@ class Level:
         self.raquete_item = Coletaveis((2000, 2000),'raquete', [self.sprites_visiveis], self.sprites_obstaculos)
         self.coxinha_item1 = Coletaveis((2300, 2500), 'coxinha', [self.sprites_visiveis], self.sprites_obstaculos)
         self.coxinha_item2 = Coletaveis((2500, 2700), 'coxinha', [self.sprites_visiveis], self.sprites_obstaculos)
+        
+        # Inimigos no inicio
+        self.inimigo_melee = Inimigo('mob_melee', (2700, 5500), [self.sprites_visiveis], self.sprites_obstaculos)
+        self.inimigo_melee = Inimigo('mob_ranged', (2600, 5500), [self.sprites_visiveis], self.sprites_obstaculos)
+        self.inimigo_melee = Inimigo('mob_elite', (2500, 5500), [self.sprites_visiveis], self.sprites_obstaculos)
     # criação do ataque
     def criar_ataque(self, type):
         if self.personagem.inventario[type] > 0:

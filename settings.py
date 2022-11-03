@@ -34,4 +34,7 @@ weapon_data = {
 }
 
 # dicionario de inimigos.
-
+enemy_data = {
+        'mob_melee' : {'health' : 75, 'dano' : 20, 'attack_type' : 'cracha_curto', 'resistance' : 5, 'speed' : 7, 'attack_radius' : 25, 'notice_radius' : 1000, 'withdraw_radius' : 0},
+        'mob_ranged' : {'health' : 50, 'dano' : 10, 'attack_type' : 'bola', 'resistance' : 2, 'speed' : 5, 'attack_radius' : 500, 'notice_radius' : 1000, 'withdraw_radius' : 400},
+        'mob_elite' : {'health' : 250, 'dano' : 30, 'attack_type' : 'cracha_retratil', 'resistance' : 7, 'speed' : 6, 'attack_radius' : 100, 'notice_radius' : 1500, 'withdraw_radius' : 50}}
