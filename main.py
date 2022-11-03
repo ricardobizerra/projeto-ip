@@ -12,8 +12,8 @@ import sys
 # import level
 # import os
 
-game_active = True
-valor = 5
+#game_active = True
+#valor = 5
 
 class Jogo:
     def __init__(self):
@@ -24,7 +24,7 @@ class Jogo:
         self.nome_jogo = pygame.display.set_caption('Nome do jogo')
         self.clock = pygame.time.Clock()
 
-        self.level = Level()
+        self.game_active = False
 
     def mostrartela(self):
         while True:
@@ -32,20 +32,21 @@ class Jogo:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
+                
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                    self.game_active = True
+                    self.level = Level()
 
-            if game_active:
+            if self.game_active:
                 self.tela.fill('black')
                 self.level.run()
-                
 
-                if self.personagem.saude_atual == 0:
-                    game_active = False
+                if self.level.personagem.saude_atual == 0:
+                    self.game_active = False
+                    self.level.personagem.saude_atual = 100
 
             else:
                 self.tela.fill((94,129,162))
-
-                if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-                    game_active = True
             
             pygame.display.update()
             self.clock.tick(FPS)
