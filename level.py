@@ -69,13 +69,6 @@ class Level:
                             if coluna == '0':
                                 self.personagem = Personagem((2500,5000),[self.sprites_visiveis],self.sprites_obstaculos, self.criar_ataque)
 
-
-
-
-        # Desenho do personagem no início
-        
-
-
         # Coletáveis no início
         self.bolinha_item1 = Coletaveis((2210, 2730), 'bola', [self.sprites_visiveis], self.sprites_obstaculos)
         self.bolinha_item2 = Coletaveis((2700, 1050), 'bola', [self.sprites_visiveis], self.sprites_obstaculos)
