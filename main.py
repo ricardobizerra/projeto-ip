@@ -5,10 +5,15 @@ from settings import *
 
 from level import Level
 
+from player import *
+
 import sys
 
 # import level
 # import os
+
+game_active = True
+valor = 5
 
 class Jogo:
     def __init__(self):
@@ -28,8 +33,20 @@ class Jogo:
                     pygame.quit()
                     sys.exit()
 
-            self.tela.fill('black')
-            self.level.run()
+            if game_active:
+                self.tela.fill('black')
+                self.level.run()
+                
+
+                if self.personagem.saude_atual == 0:
+                    game_active = False
+
+            else:
+                self.tela.fill((94,129,162))
+
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                    game_active = True
+            
             pygame.display.update()
             self.clock.tick(FPS)
 
