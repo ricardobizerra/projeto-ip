@@ -1,8 +1,8 @@
-import pygame
+import pygame 
 from settings import *
-from player import *
+from ententies import Entity
 
-class Inimigo(pygame.sprite.Sprite):
+class Inimigo(Entity):
     def __init__(self,nome_inimigo,pos,grupo_sprite,obstaculo_sprites):
         super().__init__(grupo_sprite)
         self.sprite_type = 'enemy' 
@@ -102,6 +102,4 @@ class Inimigo(pygame.sprite.Sprite):
 
     def enemy_update(self,player):
         self.get_status(player)
-        self.actions(player)
-        
-
+        self.actions(player)  
