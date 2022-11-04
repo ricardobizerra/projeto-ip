@@ -84,6 +84,11 @@ class Level:
         self.raquete_item = Coletaveis((2000, 2000),'raquete', [self.sprites_visiveis], self.sprites_obstaculos)
         self.coxinha_item1 = Coletaveis((2300, 2500), 'coxinha', [self.sprites_visiveis], self.sprites_obstaculos)
         self.coxinha_item2 = Coletaveis((2500, 2700), 'coxinha', [self.sprites_visiveis], self.sprites_obstaculos)
+        
+        # Inimigos no inicio
+        self.inimigo_melee = Inimigo('mob_melee', (2400, 5500), [self.sprites_visiveis], self.sprites_obstaculos)
+        self.inimigo_ranged = Inimigo('mob_ranged', (2600, 5500), [self.sprites_visiveis], self.sprites_obstaculos)
+        self.inimigo_elite = Inimigo('mob_elite', (2500, 5500), [self.sprites_visiveis], self.sprites_obstaculos)
     # criação do ataque
     def criar_ataque(self, type):
         if self.personagem.inventario[type] > 0:
@@ -95,6 +100,7 @@ class Level:
         #ATUALIZA E MOSTRA O JOGO
         self.sprites_visiveis.draw_personalizado(self.personagem)
         self.sprites_visiveis.update()
+        self.sprites_visiveis.enemy_update(self.personagem)
 
         #Fazendo os coletáveis sumirem
         self.bolinha_item1.apagar_col(self.personagem)
@@ -139,4 +145,8 @@ class YsortGrupoCamera(pygame.sprite.Group):
             offset_pos = sprite.rect.topleft - self.offset
             self.superficie_tela.blit(sprite.image,offset_pos)
 
+    def enemy_update(self,player):
+        enemy_sprites = [sprite for sprite in self.sprites() if hasattr(sprite,'sprite_type') and sprite.sprite_type == 'enemy']
+        for enemy in enemy_sprites:
+            enemy.enemy_update(player)
     

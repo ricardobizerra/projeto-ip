@@ -34,8 +34,8 @@ weapon_data = {
 }
 
 # dicionario de inimigos.
-monster_data = {
-    'squid': {'health': 100,'exp':100,'damage':20,'attack_type': 'slash','speed': 3, 'resistance': 3, 'attack_radius': 80, 'notice_radius': 360},
-    'raccoon': {'health': 300,'exp':250,'damage':40,'attack_type': 'claw','speed': 2, 'resistance': 3, 'attack_radius': 120, 'notice_radius': 400},
-    'spirit': {'health': 100,'exp':110,'damage':8,'attack_type': 'thunder', 'speed': 4, 'resistance': 3, 'attack_radius': 60, 'notice_radius': 350},
-    'bamboo': {'health': 70,'exp':120,'damage':6,'attack_type': 'leaf_attack', 'speed': 3, 'resistance': 3, 'attack_radius': 50, 'notice_radius': 300}}
+enemy_data = {
+        'mob_melee' : {'health' : 75, 'dano' : 20, 'attack_type' : 'cracha_curto', 'resistance' : 5, 'speed' : 7, 'attack_radius' : 25, 'notice_radius' : 400, 'withdraw_radius' : 0},
+        'mob_ranged' : {'health' : 50, 'dano' : 10, 'attack_type' : 'bola', 'resistance' : 2, 'speed' : 5, 'attack_radius' : 400, 'notice_radius' : 600, 'withdraw_radius' : 200},
+        'mob_elite' : {'health' : 250, 'dano' : 30, 'attack_type' : 'cracha_retratil', 'resistance' : 7, 'speed' : 6, 'attack_radius' : 75, 'notice_radius' : 1500, 'withdraw_radius' : 50}
+}
