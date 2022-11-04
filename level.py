@@ -99,6 +99,7 @@ class Level:
         #ATUALIZA E MOSTRA O JOGO
         self.sprites_visiveis.draw_personalizado(self.personagem)
         self.sprites_visiveis.update()
+        self.sprites_visiveis.enemy_update(self.personagem)
 
         #Fazendo os coletáveis sumirem
         self.bolinha_item1.apagar_col(self.personagem)
@@ -143,4 +144,8 @@ class YsortGrupoCamera(pygame.sprite.Group):
             offset_pos = sprite.rect.topleft - self.offset
             self.superficie_tela.blit(sprite.image,offset_pos)
 
+    def enemy_update(self,player):
+        enemy_sprites = [sprite for sprite in self.sprites() if hasattr(sprite,'sprite_type') and sprite.sprite_type == 'enemy']
+        for enemy in enemy_sprites:
+            enemy.enemy_update(player)
     
