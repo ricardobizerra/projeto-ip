@@ -6,7 +6,7 @@ from settings import *
 from support import *
 from random import choice
 from weapon import Weapon
-from enemies import Enemy
+from enemies import Inimigo
 from debug import *
 from interface_usuario import Interface_usuario
 from coletaveis import *
