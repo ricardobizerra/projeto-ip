@@ -47,23 +47,23 @@ class Inimigo(pygame.sprite.Sprite):
 
         if distance <= self.attack_radius:
             self.status = 'attack'
+            if distance <= self.withdraw_radius:
+                self.status = 'withdraw'
 
         elif distance <= self.notice_radius:
             self.status = 'move'
-
-        elif distance <= self.withdraw_radius:
-            self.status = 'withdraw'
 
         else:
             self.status = 'idle'
     
     def actions(self, player):
         if self.status == 'attack':
+            self.direction = pygame.math.Vector2()
             print('attack')
         elif self.status == 'move':
             self.direction = self.get_pos_dir(player)[1]
         elif self.status == 'withdraw':
-            self.direction = -self.get_pos_dir(player)[1]
+            self.direction = -(self.get_pos_dir(player)[1])
         else:
             self.direction = pygame.math.Vector2()
     
