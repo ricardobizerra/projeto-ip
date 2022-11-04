@@ -6,7 +6,7 @@ from settings import *
 from support import *
 from random import choice
 from weapon import Weapon
-from enemies import Inimigo
+from enemies import Enemy
 from debug import *
 from interface_usuario import Interface_usuario
 from coletaveis import *
@@ -34,8 +34,9 @@ class Level:
     def criar_mapa(self):
         layouts = { 
             'boundary': import_csv_layout('map/map_Boundaries.csv'),
-            'obstacle': import_csv_layout('map/map_Obstacles.csv')
-        }
+            'obstacle': import_csv_layout('map/map_Obstacles.csv'),
+            'entities' : import_csv_layout('map/map_Entities.csv')
+        }   
         graphics = {
             'grass': import_folder('graphics/Grass'),
             'objects': import_folder('graphics/objects')
@@ -70,15 +71,9 @@ class Level:
                             elif coluna == '18':
                                 surf = pygame.image.load('graphics/spritespiskel/mesa.png')
                             Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'none',surf)
-                            
-        
-        #INTERFACE DO PERSONAGEM.
-        self.ui = Interface_usuario()
-
-
-        # Desenho do personagem no início
-        self.personagem = Personagem((2500,5000),[self.sprites_visiveis],self.sprites_obstaculos, self.criar_ataque)
-
+                        if style == 'entities':
+                            if coluna == '0':
+                                self.personagem = Personagem((2500,5000),[self.sprites_visiveis],self.sprites_obstaculos, self.criar_ataque)
 
         # Coletáveis no início
         self.bolinha_item1 = Coletaveis((2210, 2730), 'bola', [self.sprites_visiveis], self.sprites_obstaculos)

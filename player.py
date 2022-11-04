@@ -1,8 +1,9 @@
 import pygame
+from ententies import  Entity
 from settings import *
 from support import import_folder
 
-class Personagem(pygame.sprite.Sprite):
+class Personagem(Entity):
     def __init__(self, pos, grupo_sprite, obstaculo_sprites, criar_ataque):
         super().__init__(grupo_sprite)
         self.image = pygame.image.load('graphics/test/player.png').convert_alpha()
@@ -13,11 +14,8 @@ class Personagem(pygame.sprite.Sprite):
         # setup gráfico
         self.import_player_assets()
         self.status = 'normal_down'
-        self.frame_index = 0
-        self.animation_speed = 0.15
 
         #MOVIMENTO DO PLAYER
-        self.direction = pygame.math.Vector2()
         self.speed = 10
         
         # varáveis de cooldown
@@ -154,35 +152,6 @@ class Personagem(pygame.sprite.Sprite):
 
             if 'attack' in self.status:
                 self.status = self.status.replace('attack_','normal_')
-
-    def move(self, speed):
-
-        #CORRIGIR A MOVIMENTAÇÃO QUANDO O PERSONAGEM ANDA NA DIAGONAL
-        if self.direction.magnitude() != 0:
-            self.direction = self.direction.normalize()
-
-        self.hitbox.x += self.direction.x * speed
-        self.colisao('horizontal')
-        self.hitbox.y += self.direction.y * speed
-        self.colisao('vertical')
-        self.rect.center = self.hitbox.center
-
-    def colisao(self, direcao):
-        if direcao == 'horizontal':
-            for sprite in self.obstaculo_sprites:
-                if sprite.hitbox.colliderect(self.hitbox):
-                    if self.direction.x > 0: #INDO PARA A DIREITA
-                        self.hitbox.right = sprite.hitbox.left
-                    if self.direction.x < 0: #INDO PARA A ESQUERDA
-                        self.hitbox.left = sprite.hitbox.right
-
-        if direcao == 'vertical':
-            for sprite in self.obstaculo_sprites:
-                if sprite.hitbox.colliderect(self.hitbox):
-                    if self.direction.y > 0: #INDO PARA BAIXO
-                        self.hitbox.bottom = sprite.hitbox.top
-                    if self.direction.y < 0: #INDO PARA CIMA
-                        self.hitbox.top = sprite.hitbox.bottom    
 
     # cooldown
     def cooldowns(self):
