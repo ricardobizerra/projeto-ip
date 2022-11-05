@@ -31,14 +31,6 @@ class Level:
         #INTERFACE DO PERSONAGEM.
         self.iu = Interface_usuario()
 
-    def logica_ataque(self):
-        if self.sprites_ataque:
-            for sprite_ataque in self.sprites_ataque:
-               lista_sprites_colisao = pygame.sprite.spritecollide(sprite_ataque,self.sprites_atacaveis,True)
-               if lista_sprites_colisao:
-                for alvo in lista_sprites_colisao:
-                    pass
-
     def criar_mapa(self):
         layouts = { 
             'boundary': import_csv_layout('map/map_Boundaries.csv'),
@@ -103,6 +95,14 @@ class Level:
             Weapon(self.personagem, [self.sprites_visiveis, self.sprites_ataque], type, self.sprites_obstaculos)
             if type == 'bola':
                 self.personagem.inventario['bola'] -= 1
+
+    def logica_ataque(self):
+        if self.sprites_ataque:
+            for sprite_ataque in self.sprites_ataque:
+               lista_sprites_colisao = pygame.sprite.spritecollide(sprite_ataque,self.sprites_atacaveis,True)
+               if lista_sprites_colisao:
+                for alvo in lista_sprites_colisao:
+                    alvo.levar_dano(self.personagem,sprite_ataque.sprite_type)
 
     def run(self):
         #ATUALIZA E MOSTRA O JOGO

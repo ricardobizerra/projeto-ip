@@ -38,7 +38,7 @@ class Personagem(Entity):
         }
 
         #STATUS DO PERSONAGEM.
-        self.status_saude = {'saude': 100}
+        self.status_saude = {'saude': 100, 'ataque': 5}
         self.saude_atual = self.status_saude['saude']
         self.razao = self.saude_atual / largura_barra_vida
 
@@ -58,7 +58,15 @@ class Personagem(Entity):
             self.saude_atual += cura
         else:
             self.saude_atual = self.status_saude['saude']
-    
+
+    def get_full_weapon_damage(self):
+        dano_base = self.status_saude['ataque']
+        dano_arma = weapon_data[self.weapon]['dano']
+        if weapon_data[self.weapon] == 'bola':
+            return dano_arma
+        else:
+            return dano_base + dano_arma
+        
     # "unir" estados do jogador com pastas de imagens para animação
     def import_player_assets(self):
         character_path = 'graphics/personagem/'
@@ -157,7 +165,7 @@ class Personagem(Entity):
         current_time = pygame.time.get_ticks()
 
         if self.attacking:
-            if current_time - self.attack_time >= self.attack_cooldown:
+            if current_time - self.attack_time >= self.attack_cooldown + weapon_data[self.weapon]['dano']:
                 self.attacking = False
         
         if self.comendo:

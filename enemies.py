@@ -31,9 +31,21 @@ class Inimigo(Entity):
         self.notice_radius = info_tipo['notice_radius']
         self.withdraw_radius = info_tipo['withdraw_radius']
 
-    def levar_dano(jogador, tipo_ataque):
-        pass
+        #tempo de invensibilidade
+        self.vulneravel = True
+        self.tempo_ataque = None 
+        self.tempo_invencibilidade = 400
 
+    def levar_dano(self, jogador, tipo_ataque):
+        if self.vulneravel:
+            if tipo_ataque == 'weapon':
+                self.health -= jogador.get_full_weapon_damage()
+            self.tempo_ataque = pygame.time.get_ticks()
+            self.vulneravel = False 
+            
+    def verificar_morte(self):
+        if self.health <= 0:
+            self.kill()
 
     def get_pos_dir(self,player):
         enemy_vec = pygame.math.Vector2(self.rect.center)
@@ -71,12 +83,11 @@ class Inimigo(Entity):
             self.direction = -(self.get_pos_dir(player)[1])
         else:
             self.direction = pygame.math.Vector2()
-    
-   
-    
+                
     def update(self):
         self.move(self.speed)
 
     def enemy_update(self,player):
         self.get_status(player)
-        self.actions(player)  
+        self.actions(player)
+        self.verificar_morte()  

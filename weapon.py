@@ -6,7 +6,7 @@ class Weapon(pygame.sprite.Sprite):
     def __init__(self, player, groups, type, obstaculo_sprites):
         super().__init__(groups)
         self.attack_direction = player.status.split('_')[1]
-        self.sprite_type == 'weapon'
+        self.sprite_type = 'weapon' 
 
         # gráficos
         full_path = f'graphics/weapons/{type}/{self.attack_direction}.png'
