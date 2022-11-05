@@ -1,23 +1,21 @@
 import pygame 
 from settings import *
 from ententies import Entity
+from support import *
 
 class Inimigo(Entity):
     def __init__(self,nome_inimigo,pos,grupo_sprite,obstaculo_sprites):
         super().__init__(grupo_sprite)
         self.sprite_type = 'enemy' 
+
+        self.import_graphics(nome_inimigo)
         self.status = 'idle'
-        if nome_inimigo == 'mob_melee':
-            self.image = pygame.image.load('graphics/test/enemy_melee.png').convert_alpha()
-        elif nome_inimigo == 'mob_ranged':
-            self.image = pygame.image.load('graphics/test/enemy_rannged.png').convert_alpha()
-        elif nome_inimigo == 'mob_elite':
-            self.image = pygame.image.load('graphics/test/enemy_elite.png').convert_alpha()
+        self.image = self.animations[self.status][self.frame_index]
+
         self.rect =  self.image.get_rect(topleft=pos)
         self.hitbox = self.rect.inflate(0,-10)
         self.obstaculo_sprites = obstaculo_sprites
-        self.direction = pygame.math.Vector2()
-        
+
         # Status do inimigo:
         self.tipo_inimigo = nome_inimigo
         info_tipo = enemy_data[self.tipo_inimigo]
@@ -29,6 +27,18 @@ class Inimigo(Entity):
         self.attack_radius = info_tipo['attack_radius']
         self.notice_radius = info_tipo['notice_radius']
         self.withdraw_radius = info_tipo['withdraw_radius']
+        self.attack_cooldown = info_tipo['attack_cooldown']
+
+        # Interacao com player
+        self.can_attack = True
+        self.attack_time = None
+
+    def import_graphics(self,name):
+        self.animations = {'idle':[],'move':[],'attack':[],'withdraw':[]}
+        main_path = f'./graphics/inimigos/{name}/'
+        for animation in self.animations.keys():
+            self.animations[animation] = import_folder(main_path + animation)
+            print(self.animations)
 
     def get_pos_dir(self,player):
         enemy_vec = pygame.math.Vector2(self.rect.center)
@@ -96,9 +106,20 @@ class Inimigo(Entity):
                         self.hitbox.bottom = sprite.hitbox.top
                     if self.direction.y < 0: #INDO PARA CIMA
                         self.hitbox.top = sprite.hitbox.bottom    
-    
+
+    def animate(self):
+        animation = self.animations[self.status]
+        self.frame_index += self.animation_speed
+        if self.frame_index >= len(animation):
+            self.frame_index = 0
+        # definir a imagem
+        self.image = animation[int(self.frame_index)]
+        self.rect = self.image.get_rect(center = self.hitbox.center)
+
+
     def update(self):
         self.move(self.speed)
+        self.animate()
 
     def enemy_update(self,player):
         self.get_status(player)
