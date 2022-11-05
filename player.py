@@ -16,7 +16,7 @@ class Personagem(Entity):
         self.status = 'normal_down'
 
         #MOVIMENTO DO PLAYER
-        self.speed = 10
+        self.speed = 20
         
         # varáveis de cooldown
         self.attacking = False
@@ -34,7 +34,7 @@ class Personagem(Entity):
 
         # Inventário:
         self.inventario = {
-            'bola': 0, 'raquete': 0, 'coxinha': 0
+            'bola': 20, 'raquete': 0, 'coxinha': 0
         }
 
         #STATUS DO PERSONAGEM.
@@ -91,11 +91,10 @@ class Personagem(Entity):
             if keys[pygame.K_UP] or keys[pygame.K_w]:
                 self.direction.y = -1
                 self.status = 'normal_up'
-                self.levar_dano(1)
+                
             elif keys[pygame.K_DOWN] or keys[pygame.K_s]:
                 self.direction.y = 1
                 self.status = 'normal_down'
-                self.curar(1)
             else:
                 self.direction.y = 0
 
