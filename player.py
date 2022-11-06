@@ -16,7 +16,7 @@ class Personagem(Entity):
         self.status = 'normal_down'
 
         #MOVIMENTO DO PLAYER
-        self.speed = 20
+        self.speed = 10
         
         # varáveis de cooldown
         self.attacking = False
@@ -26,6 +26,10 @@ class Personagem(Entity):
         self.comendo = False
         self.comendo_time = None
         self.comendo_cooldown = 1000
+
+        self.vulneravel = True
+        self.vulneravel_timer = 0
+        self.vulneravel_cooldown = 300
 
         # armas
         self.criar_ataque = criar_ataque
@@ -41,16 +45,10 @@ class Personagem(Entity):
         self.status_saude = {'saude': 100, 'ataque': 5}
         self.saude_atual = self.status_saude['saude']
         self.razao = self.saude_atual / largura_barra_vida
+        vida = self.saude_atual
 
         #COLISÃO
         self.obstaculo_sprites = obstaculo_sprites
-    
-    #METODO PARA LEVAR DANO
-    def levar_dano(self, dano):
-        if self.saude_atual > 0:
-            self.saude_atual -= dano 
-        elif self.saude_atual <= 0:
-            self.saude_atual = 0 #Aqui o personagem morre
 
     #METODO PARA RECUPERAR VIDA.
     def curar(self, cura):
@@ -160,7 +158,13 @@ class Personagem(Entity):
             if 'attack' in self.status:
                 self.status = self.status.replace('attack_','normal_')
 
-    # cooldown
+    def damage_player(self,amount,attack_type):
+        if self.vulneravel:
+            self.saude_atual -= amount
+            self.vulneravel = False
+            self.vulneravel_timer = pygame.time.get_ticks()
+
+   # cooldown
     def cooldowns(self):
         current_time = pygame.time.get_ticks()
 
@@ -171,6 +175,10 @@ class Personagem(Entity):
         if self.comendo:
             if current_time - self.comendo_time >= self.comendo_cooldown:
                 self.comendo = False
+
+        if not self.vulneravel:
+            if current_time - self.vulneravel_timer >= self.vulneravel_cooldown:
+                self.vulneravel = True
 
     # animação de jogador
     def animate(self):
@@ -185,6 +193,12 @@ class Personagem(Entity):
         # definir a imagem
         self.image = animation[int(self.frame_index)]
         self.rect = self.image.get_rect(center = self.hitbox.center)
+        if not self.vulneravel:
+            alpha = self.flicker()
+            self.image.set_alpha(alpha)
+        else:
+            self.image.set_alpha(255)
+
 
     def update(self):
         self.input()
@@ -192,3 +206,4 @@ class Personagem(Entity):
         self.animate()
         self.get_status()
         self.move(self.speed)
+        

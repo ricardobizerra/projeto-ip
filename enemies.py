@@ -4,7 +4,7 @@ from ententies import Entity
 
 
 class Inimigo(Entity):
-    def __init__(self,nome_inimigo,pos,grupo_sprite,obstaculo_sprites):
+    def __init__(self,nome_inimigo,pos,grupo_sprite,obstaculo_sprites,damage_player):
         super().__init__(grupo_sprite)
         self.sprite_type = 'enemy' 
         self.status = 'idle'
@@ -30,11 +30,17 @@ class Inimigo(Entity):
         self.attack_radius = info_tipo['attack_radius']
         self.notice_radius = info_tipo['notice_radius']
         self.withdraw_radius = info_tipo['withdraw_radius']
+        self.attack_cooldown = info_tipo['cooldown_ataque']
+        self.startup_timer = info_tipo['startup_ataque']
 
         #interacao com jogador
         self.can_attack = True 
         self.attack_time = 0
-        self.attack_cooldown = 400
+        self.attacking = False
+        self.launch_attack = False
+        self.interrupted = False
+        self.speed_multiplier = 1
+        self.damage_player = damage_player
 
         #tempo de invensibilidade
         self.vulneravel = True 
@@ -43,6 +49,11 @@ class Inimigo(Entity):
 
     def cooldowns(self):
         current_time = pygame.time.get_ticks()
+        if self.attacking:
+            if current_time - self.attacking_timer >= self.startup_timer:
+                self.launch_attack = True
+                self.attacking = False
+
         if not self.can_attack:
             if current_time - self.attack_time >= self.attack_cooldown:
                 self.can_attack = True 
@@ -51,11 +62,12 @@ class Inimigo(Entity):
             if current_time - self.tempo_ataque >= self.tempo_invencibilidade:
                 self.vulneravel = True 
 
-    def levar_dano(self, jogador, tipo_ataque):
+    def levar_dano(self, player, tipo_ataque):
         if self.vulneravel:
-            self.direction = self.get_pos_dir(jogador)[1]
+            self.interrupted = True
+            self.direction = -(self.get_pos_dir(player)[1])
             if tipo_ataque == 'weapon':
-                self.health -= jogador.get_full_weapon_damage()
+                self.health -= player.get_full_weapon_damage()
             self.tempo_ataque = pygame.time.get_ticks()
             self.vulneravel = False 
             
@@ -80,8 +92,6 @@ class Inimigo(Entity):
 
     def get_status(self, player):
         distance = self.get_pos_dir(player)[0]
-        print(distance)
-
         if distance <= self.attack_radius:
             self.status = 'attack'
             if distance <= self.withdraw_radius:
@@ -94,10 +104,12 @@ class Inimigo(Entity):
             self.status = 'idle'
     
     def actions(self, player):
-        if self.status == 'attack':
-            self.attack_time = pygame.time.get_ticks()
-            self.direction = pygame.math.Vector2()
-            print('attack')
+        if self.status == 'attack' and self.can_attack:
+            if not self.attacking and not self.launch_attack:
+                self.attacking = True
+                self.attacking_timer = pygame.time.get_ticks()
+                print('started',self.attack,'attack')
+                self.speed_multiplier = 0.5
         elif self.status == 'move':
             self.direction = self.get_pos_dir(player)[1]
         elif self.status == 'withdraw':
@@ -105,12 +117,28 @@ class Inimigo(Entity):
         else:
             self.direction = pygame.math.Vector2()
 
+        if self.launch_attack and not self.interrupted:
+            self.launch_attack = False
+            self.attack_time = pygame.time.get_ticks()
+            self.can_attack = False
+            print(self.attack, 'attack!!!')
+            self.damage_player(self.dano,self.attack)
+            self.speed_multiplier = 1
+        if self.launch_attack and self.interrupted:
+            self.launch_attack = False
+            self.can_attack = False
+            print(self.attack, 'interrupted')
+            self.interrupted = False
+            self.speed_multiplier = 1
 
-                
     def update(self):
-        self.move(self.speed)
+        self.move(self.speed*self.speed_multiplier)
         self.cooldowns()
-        
+        if not self.vulneravel:
+            alpha = self.flicker()
+            self.image.set_alpha(alpha)
+        else:
+            self.image.set_alpha(255)
 
     def enemy_update(self,player):
         self.get_status(player)
