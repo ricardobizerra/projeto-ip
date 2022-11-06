@@ -92,6 +92,16 @@ class Interface_usuario():
         inventario_rect = superficie_inventario.get_rect(topleft=(40, 160))
         self.display_superficie.blit(superficie_inventario, inventario_rect)
 
+    def desenho_vetor(self):
+        superficie_des_vetor = pygame.image.load(('graphics/coletaveis/vetor_item/full2.png'))
+        des_vetor_rect = superficie_des_vetor.get_rect(topleft=(0, 240))
+        self.display_superficie.blit(superficie_des_vetor, des_vetor_rect)
+
+    def inventario_vetor(self, inventario):
+        superficie_inventario = self.font.render('possui', True, 'Black')
+        inventario_rect = superficie_inventario.get_rect(topleft=(40, 250))
+        self.display_superficie.blit(superficie_inventario, inventario_rect)
+
     def display(self, personagem):
         self.desenho_bola()
         self.inventario_bolas(personagem.inventario)
@@ -103,6 +113,9 @@ class Interface_usuario():
         if personagem.inventario['cracha'] == 1:
             self.desenho_cracha1()
             self.inventario_cracha1(personagem.inventario)
-        self.mostrar_barra_vida(personagem.saude_atual,personagem.status_saude['saude'], self.barra_vida_rect, cor_barra_vida) 
+        if personagem.inventario['vetor'] == 1:
+            self.desenho_vetor()
+            self.inventario_vetor(personagem.inventario)
+        self.mostrar_barra_vida(personagem.saude_atual,personagem.status_saude['saude'], self.barra_vida_rect, cor_barra_vida)
         self.caixa_selecao(10,610)
         self.mostrar_arma_caixa(personagem.weapon_index)
