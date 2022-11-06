@@ -81,10 +81,11 @@ class Level:
         self.bolinha_item3 = Coletaveis((1100, 700), 'bola', [self.sprites_visiveis], self.sprites_obstaculos)
         self.bolinha_item4 = Coletaveis((1520, 3000), 'bola', [self.sprites_visiveis], self.sprites_obstaculos)
         self.bolinha_item5 = Coletaveis((2428, 1480), 'bola', [self.sprites_visiveis], self.sprites_obstaculos)
-        self.raquete_item = Coletaveis((2000, 2000),'raquete', [self.sprites_visiveis], self.sprites_obstaculos)
+        self.raquete_item = Coletaveis((1300, 2000),'raquete', [self.sprites_visiveis], self.sprites_obstaculos)
         self.coxinha_item1 = Coletaveis((2300, 2500), 'coxinha', [self.sprites_visiveis], self.sprites_obstaculos)
         self.coxinha_item2 = Coletaveis((2500, 2700), 'coxinha', [self.sprites_visiveis], self.sprites_obstaculos)
-        
+        self.cracha_item1 = Coletaveis((2500, 5200), 'cracha', [self.sprites_visiveis], self.sprites_obstaculos)
+
         # Inimigos no inicio
         self.inimigo_melee = Inimigo('mob_melee', (2400, 5500), [self.sprites_visiveis], self.sprites_obstaculos)
         self.inimigo_ranged = Inimigo('mob_ranged', (2600, 5500), [self.sprites_visiveis], self.sprites_obstaculos)
@@ -111,6 +112,7 @@ class Level:
         self.raquete_item.apagar_col(self.personagem)
         self.coxinha_item1.apagar_col(self.personagem)
         self.coxinha_item2.apagar_col(self.personagem)
+        self.cracha_item1.apagar_col(self.personagem)
 
 
         debug(self.personagem.status)

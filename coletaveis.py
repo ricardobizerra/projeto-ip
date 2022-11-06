@@ -26,5 +26,7 @@ class Coletaveis(pygame.sprite.Sprite):
                 inventario['raquete'] = 1
             elif coletavel == 'coxinha':
                 inventario['coxinha'] += 1
+            elif coletavel == 'cracha':
+                inventario['cracha'] += 1
     def apagar_col(self, personagem):
         self.colisao_col(self.hitbox, personagem.hitbox, self.coletavel, personagem.inventario)
