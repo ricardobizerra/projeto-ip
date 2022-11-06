@@ -65,11 +65,11 @@ class Interface_usuario():
 
     def desenho_raquete(self):
         superficie_des_raquete = pygame.image.load('graphics/coletaveis/raquete_item/full.png')
-        des_raquete_rect = superficie_des_raquete.get_rect(topleft=(10, 153))
+        des_raquete_rect = superficie_des_raquete.get_rect(topleft=(10, 193))
         self.display_superficie.blit(superficie_des_raquete, des_raquete_rect)
     def inventario_raquetes(self, inventario):
         superficie_inventario = self.font.render('possui', True, 'Black')
-        inventario_rect = superficie_inventario.get_rect(topleft=(40, 165))
+        inventario_rect = superficie_inventario.get_rect(topleft=(40, 205))
         self.display_superficie.blit(superficie_inventario, inventario_rect)
 
     def desenho_coxinha(self):
@@ -81,6 +81,27 @@ class Interface_usuario():
         superficie_inventario = self.font.render(f"{str(inventario['coxinha'])}", True, 'Black')
         inventario_rect = superficie_inventario.get_rect(topleft=(40, 120))
         self.display_superficie.blit(superficie_inventario, inventario_rect)
+
+    def desenho_cracha1(self):
+        superficie_des_cracha = pygame.image.load(('graphics/coletaveis/cracha_item/full.png'))
+        des_cracha_rect = superficie_des_cracha.get_rect(topleft=(-5, 135))
+        self.display_superficie.blit(superficie_des_cracha, des_cracha_rect)
+
+    def inventario_cracha1(self, inventario):
+        superficie_inventario = self.font.render('possui', True, 'Black')
+        inventario_rect = superficie_inventario.get_rect(topleft=(40, 160))
+        self.display_superficie.blit(superficie_inventario, inventario_rect)
+
+    def desenho_vetor(self):
+        superficie_des_vetor = pygame.image.load(('graphics/coletaveis/vetor_item/full2.png'))
+        des_vetor_rect = superficie_des_vetor.get_rect(topleft=(0, 240))
+        self.display_superficie.blit(superficie_des_vetor, des_vetor_rect)
+
+    def inventario_vetor(self, inventario):
+        superficie_inventario = self.font.render('possui', True, 'Black')
+        inventario_rect = superficie_inventario.get_rect(topleft=(40, 250))
+        self.display_superficie.blit(superficie_inventario, inventario_rect)
+
     def display(self, personagem):
         self.desenho_bola()
         self.inventario_bolas(personagem.inventario)
@@ -89,6 +110,12 @@ class Interface_usuario():
         if personagem.inventario["raquete"] == 1:
             self.desenho_raquete()
             self.inventario_raquetes(personagem.inventario)
-        self.mostrar_barra_vida(personagem.saude_atual,personagem.status_saude['saude'], self.barra_vida_rect, cor_barra_vida) 
+        if personagem.inventario['cracha'] == 1:
+            self.desenho_cracha1()
+            self.inventario_cracha1(personagem.inventario)
+        if personagem.inventario['vetor'] == 1:
+            self.desenho_vetor()
+            self.inventario_vetor(personagem.inventario)
+        self.mostrar_barra_vida(personagem.saude_atual,personagem.status_saude['saude'], self.barra_vida_rect, cor_barra_vida)
         self.caixa_selecao(10,610)
         self.mostrar_arma_caixa(personagem.weapon_index)

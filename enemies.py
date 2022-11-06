@@ -3,14 +3,21 @@ from settings import *
 from ententies import Entity
 from support import *
 
+
 class Inimigo(Entity):
-    def __init__(self,nome_inimigo,pos,grupo_sprite,obstaculo_sprites):
+    def __init__(self,nome_inimigo,pos,grupo_sprite,obstaculo_sprites,damage_player):
         super().__init__(grupo_sprite)
         self.sprite_type = 'enemy' 
 
         self.import_graphics(nome_inimigo)
         self.status = 'idle'
-        self.image = self.animations[self.status][self.frame_index]
+
+        if nome_inimigo == 'mob_melee':
+            self.image = pygame.image.load('graphics/test/enemy_melee').convert_alpha()
+        elif nome_inimigo == 'mob_ranged':
+            self.image = pygame.image.load('graphics/test/enemy_rannged.png').convert_alpha()
+        elif nome_inimigo == 'mob_elite':
+            self.image = pygame.image.load('graphics/test/enemy_elite.png').convert_alpha()
 
         self.rect =  self.image.get_rect(topleft=pos)
         self.hitbox = self.rect.inflate(0,-10)
@@ -27,18 +34,50 @@ class Inimigo(Entity):
         self.attack_radius = info_tipo['attack_radius']
         self.notice_radius = info_tipo['notice_radius']
         self.withdraw_radius = info_tipo['withdraw_radius']
-        self.attack_cooldown = info_tipo['attack_cooldown']
+        self.attack_cooldown = info_tipo['cooldown_ataque']
+        self.startup_timer = info_tipo['startup_ataque']
 
-        # Interacao com player
-        self.can_attack = True
-        self.attack_time = None
+        #interacao com jogador
+        self.can_attack = True 
+        self.attack_time = 0
+        self.attacking = False
+        self.launch_attack = False
+        self.interrupted = False
+        self.speed_multiplier = 1
+        self.damage_player = damage_player
 
-    def import_graphics(self,name):
-        self.animations = {'idle':[],'move':[],'attack':[],'withdraw':[]}
-        main_path = f'./graphics/inimigos/{name}/'
-        for animation in self.animations.keys():
-            self.animations[animation] = import_folder(main_path + animation)
-            print(self.animations)
+        #tempo de invensibilidade
+        self.vulneravel = True 
+        self.tempo_ataque = 0
+        self.tempo_invencibilidade = 300
+
+    def cooldowns(self):
+        current_time = pygame.time.get_ticks()
+        if self.attacking:
+            if current_time - self.attacking_timer >= self.startup_timer:
+                self.launch_attack = True
+                self.attacking = False
+
+        if not self.can_attack:
+            if current_time - self.attack_time >= self.attack_cooldown:
+                self.can_attack = True 
+    
+        if not self.vulneravel:
+            if current_time - self.tempo_ataque >= self.tempo_invencibilidade:
+                self.vulneravel = True 
+
+    def levar_dano(self, player, tipo_ataque):
+        if self.vulneravel:
+            self.interrupted = True
+            self.direction = -(self.get_pos_dir(player)[1])
+            if tipo_ataque == 'weapon':
+                self.health -= player.get_full_weapon_damage()
+            self.tempo_ataque = pygame.time.get_ticks()
+            self.vulneravel = False 
+            
+    def verificar_morte(self):
+        if self.health <= 0:
+            self.kill()
 
     def get_pos_dir(self,player):
         enemy_vec = pygame.math.Vector2(self.rect.center)
@@ -51,10 +90,12 @@ class Inimigo(Entity):
 
         return (distance, direction)
 
+    def reacao_dano(self):
+        if not self.vulneravel:
+            self.direction *= -self.resistance
+
     def get_status(self, player):
         distance = self.get_pos_dir(player)[0]
-        print(distance)
-
         if distance <= self.attack_radius:
             self.status = 'attack'
             if distance <= self.withdraw_radius:
@@ -67,60 +108,44 @@ class Inimigo(Entity):
             self.status = 'idle'
     
     def actions(self, player):
-        if self.status == 'attack':
-            self.direction = pygame.math.Vector2()
-            print('attack')
+        if self.status == 'attack' and self.can_attack:
+            if not self.attacking and not self.launch_attack:
+                self.attacking = True
+                self.attacking_timer = pygame.time.get_ticks()
+                print('started',self.attack,'attack')
+                self.speed_multiplier = 0.5
         elif self.status == 'move':
             self.direction = self.get_pos_dir(player)[1]
         elif self.status == 'withdraw':
             self.direction = -(self.get_pos_dir(player)[1])
         else:
             self.direction = pygame.math.Vector2()
-    
-    # movimento e colisão que podem sair ao implentar a classe Entity
-    def move(self, speed):
 
-        #CORRIGIR A MOVIMENTAÇÃO QUANDO O PERSONAGEM ANDA NA DIAGONAL
-        if self.direction.magnitude() != 0:
-            self.direction = self.direction.normalize()
-
-        self.hitbox.x += self.direction.x * speed
-        self.colisao('horizontal')
-        self.hitbox.y += self.direction.y * speed
-        self.colisao('vertical')
-        self.rect.center = self.hitbox.center
-
-    def colisao(self, direcao):
-        if direcao == 'horizontal':
-            for sprite in self.obstaculo_sprites:
-                if sprite.hitbox.colliderect(self.hitbox):
-                    if self.direction.x > 0: #INDO PARA A DIREITA
-                        self.hitbox.right = sprite.hitbox.left
-                    if self.direction.x < 0: #INDO PARA A ESQUERDA
-                        self.hitbox.left = sprite.hitbox.right
-
-        if direcao == 'vertical':
-            for sprite in self.obstaculo_sprites:
-                if sprite.hitbox.colliderect(self.hitbox):
-                    if self.direction.y > 0: #INDO PARA BAIXO
-                        self.hitbox.bottom = sprite.hitbox.top
-                    if self.direction.y < 0: #INDO PARA CIMA
-                        self.hitbox.top = sprite.hitbox.bottom    
-
-    def animate(self):
-        animation = self.animations[self.status]
-        self.frame_index += self.animation_speed
-        if self.frame_index >= len(animation):
-            self.frame_index = 0
-        # definir a imagem
-        self.image = animation[int(self.frame_index)]
-        self.rect = self.image.get_rect(center = self.hitbox.center)
-
+        if self.launch_attack and not self.interrupted:
+            self.launch_attack = False
+            self.attack_time = pygame.time.get_ticks()
+            self.can_attack = False
+            print(self.attack, 'attack!!!')
+            self.damage_player(self.dano,self.attack)
+            self.speed_multiplier = 1
+        if self.launch_attack and self.interrupted:
+            self.launch_attack = False
+            self.can_attack = False
+            print(self.attack, 'interrupted')
+            self.interrupted = False
+            self.speed_multiplier = 1
 
     def update(self):
-        self.move(self.speed)
-        self.animate()
+        self.move(self.speed*self.speed_multiplier)
+        self.cooldowns()
+        if not self.vulneravel:
+            alpha = self.flicker()
+            self.image.set_alpha(alpha)
+        else:
+            self.image.set_alpha(255)
 
     def enemy_update(self,player):
         self.get_status(player)
-        self.actions(player)  
+        self.actions(player)
+        self.verificar_morte()  
+        self.reacao_dano()
