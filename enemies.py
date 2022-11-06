@@ -31,13 +31,29 @@ class Inimigo(Entity):
         self.notice_radius = info_tipo['notice_radius']
         self.withdraw_radius = info_tipo['withdraw_radius']
 
+        #interacao com jogador
+        self.can_attack = True 
+        self.attack_time = 0
+        self.attack_cooldown = 400
+
         #tempo de invensibilidade
-        self.vulneravel = True
-        self.tempo_ataque = None 
-        self.tempo_invencibilidade = 400
+        self.vulneravel = True 
+        self.tempo_ataque = 0
+        self.tempo_invencibilidade = 300
+
+    def cooldowns(self):
+        current_time = pygame.time.get_ticks()
+        if not self.can_attack:
+            if current_time - self.attack_time >= self.attack_cooldown:
+                self.can_attack = True 
+    
+        if not self.vulneravel:
+            if current_time - self.tempo_ataque >= self.tempo_invencibilidade:
+                self.vulneravel = True 
 
     def levar_dano(self, jogador, tipo_ataque):
         if self.vulneravel:
+            self.direction = self.get_pos_dir(jogador)[1]
             if tipo_ataque == 'weapon':
                 self.health -= jogador.get_full_weapon_damage()
             self.tempo_ataque = pygame.time.get_ticks()
@@ -58,6 +74,10 @@ class Inimigo(Entity):
 
         return (distance, direction)
 
+    def reacao_dano(self):
+        if not self.vulneravel:
+            self.direction *= -self.resistance
+
     def get_status(self, player):
         distance = self.get_pos_dir(player)[0]
         print(distance)
@@ -75,6 +95,7 @@ class Inimigo(Entity):
     
     def actions(self, player):
         if self.status == 'attack':
+            self.attack_time = pygame.time.get_ticks()
             self.direction = pygame.math.Vector2()
             print('attack')
         elif self.status == 'move':
@@ -83,11 +104,16 @@ class Inimigo(Entity):
             self.direction = -(self.get_pos_dir(player)[1])
         else:
             self.direction = pygame.math.Vector2()
+
+
                 
     def update(self):
         self.move(self.speed)
+        self.cooldowns()
+        
 
     def enemy_update(self,player):
         self.get_status(player)
         self.actions(player)
         self.verificar_morte()  
+        self.reacao_dano()
