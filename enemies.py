@@ -1,24 +1,28 @@
 import pygame 
 from settings import *
 from ententies import Entity
+from support import *
 
 
 class Inimigo(Entity):
     def __init__(self,nome_inimigo,pos,grupo_sprite,obstaculo_sprites,damage_player):
         super().__init__(grupo_sprite)
         self.sprite_type = 'enemy' 
+
+        self.import_graphics(nome_inimigo)
         self.status = 'idle'
+
         if nome_inimigo == 'mob_melee':
             self.image = pygame.image.load('graphics/test/enemy_melee').convert_alpha()
         elif nome_inimigo == 'mob_ranged':
             self.image = pygame.image.load('graphics/test/enemy_rannged.png').convert_alpha()
         elif nome_inimigo == 'mob_elite':
             self.image = pygame.image.load('graphics/test/enemy_elite.png').convert_alpha()
+
         self.rect =  self.image.get_rect(topleft=pos)
         self.hitbox = self.rect.inflate(0,-10)
         self.obstaculo_sprites = obstaculo_sprites
-        self.direction = pygame.math.Vector2()
-        
+
         # Status do inimigo:
         self.tipo_inimigo = nome_inimigo
         info_tipo = enemy_data[self.tipo_inimigo]
