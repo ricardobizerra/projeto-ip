@@ -97,11 +97,9 @@ class Personagem(Entity):
             if keys[pygame.K_UP] or keys[pygame.K_w]:
                 self.direction.y = -1
                 self.status = 'normal_up'
-                self.levar_dano(0)
             elif keys[pygame.K_DOWN] or keys[pygame.K_s]:
                 self.direction.y = 1
                 self.status = 'normal_down'
-                self.curar(0)
             else:
                 self.direction.y = 0
 

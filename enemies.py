@@ -9,11 +9,10 @@ class Inimigo(Entity):
         super().__init__(grupo_sprite)
         self.sprite_type = 'enemy' 
 
-        self.import_graphics(nome_inimigo)
         self.status = 'idle'
 
         if nome_inimigo == 'mob_melee':
-            self.image = pygame.image.load('graphics/test/enemy_melee').convert_alpha()
+            self.image = pygame.image.load('graphics/test/enemy_melee.png').convert_alpha()
         elif nome_inimigo == 'mob_ranged':
             self.image = pygame.image.load('graphics/test/enemy_rannged.png').convert_alpha()
         elif nome_inimigo == 'mob_elite':
