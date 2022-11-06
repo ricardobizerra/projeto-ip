@@ -6,7 +6,7 @@ from support import import_folder
 class Personagem(Entity):
     def __init__(self, pos, grupo_sprite, obstaculo_sprites, criar_ataque):
         super().__init__(grupo_sprite)
-        self.image = pygame.image.load('graphics/test/player.png').convert_alpha()
+        self.image = pygame.image.load('graphics/player/down/down.png').convert_alpha()
         self.rect =  self.image.get_rect(topleft=pos)
         self.hitbox = self.rect.inflate(0, -26)
         self.superficie_tela = pygame.display.get_surface()
