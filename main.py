@@ -41,7 +41,7 @@ class Jogo:
                 self.tela.fill('black')
                 self.level.run()
 
-                if self.level.personagem.saude_atual == 0:
+                if self.level.personagem.saude_atual <= 0:
                     self.game_active = False
                     self.level.personagem.saude_atual = 100
 
