@@ -88,20 +88,36 @@ class Level:
         self.vetor_item = Coletaveis((2500, 5400), 'vetor', [self.sprites_visiveis], self.sprites_obstaculos)
 
         # Inimigos no inicio
-        self.inimigo_melee = Inimigo('mob_melee', (2400, 5500), [self.sprites_visiveis], self.sprites_obstaculos)
-        self.inimigo_ranged = Inimigo('mob_ranged', (2600, 5500), [self.sprites_visiveis], self.sprites_obstaculos)
-        self.inimigo_elite = Inimigo('mob_elite', (2500, 5500), [self.sprites_visiveis], self.sprites_obstaculos)
+        self.inimigo_melee = Inimigo('mob_melee', (2400, 5500), [self.sprites_visiveis, self.sprites_atacaveis], self.sprites_obstaculos, self.damage_player)
+        self.inimigo_ranged = Inimigo('mob_ranged', (2600, 5500), [self.sprites_visiveis, self.sprites_atacaveis], self.sprites_obstaculos, self.damage_player)
+        self.inimigo_elite = Inimigo('mob_elite', (2500, 5500), [self.sprites_visiveis, self.sprites_atacaveis], self.sprites_obstaculos, self.damage_player)
+
     # criação do ataque
     def criar_ataque(self, type):
         if self.personagem.inventario[type] > 0:
-            Weapon(self.personagem, [self.sprites_visiveis], type, self.sprites_obstaculos)
+            Weapon(self.personagem, [self.sprites_visiveis, self.sprites_ataque], type, self.sprites_obstaculos)
             if type == 'bola':
                 self.personagem.inventario['bola'] -= 1
+
+    def logica_ataque(self):
+        if self.sprites_ataque:
+            for sprite_ataque in self.sprites_ataque:
+               lista_sprites_colisao = pygame.sprite.spritecollide(sprite_ataque,self.sprites_atacaveis,False)
+               if lista_sprites_colisao:
+                for alvo in lista_sprites_colisao:
+                    alvo.levar_dano(self.personagem,sprite_ataque.sprite_type)
+
+    def damage_player(self,amount,attack_type):
+        if self.personagem.vulneravel:
+            self.personagem.saude_atual -= amount
+            self.personagem.vulneravel = False
+            self.personagem.vulneravel_timer = pygame.time.get_ticks()
 
     def run(self):
         #ATUALIZA E MOSTRA O JOGO
         self.sprites_visiveis.draw_personalizado(self.personagem)
         self.sprites_visiveis.update()
+        self.logica_ataque()
         self.sprites_visiveis.enemy_update(self.personagem)
 
         #Fazendo os coletáveis sumirem
