@@ -158,12 +158,6 @@ class Personagem(Entity):
             if 'attack' in self.status:
                 self.status = self.status.replace('attack_','normal_')
 
-    def damage_player(self,amount,attack_type):
-        if self.vulneravel:
-            self.saude_atual -= amount
-            self.vulneravel = False
-            self.vulneravel_timer = pygame.time.get_ticks()
-
    # cooldown
     def cooldowns(self):
         current_time = pygame.time.get_ticks()

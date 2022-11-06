@@ -105,6 +105,12 @@ class Level:
                 for alvo in lista_sprites_colisao:
                     alvo.levar_dano(self.personagem,sprite_ataque.sprite_type)
 
+    def damage_player(self,amount,attack_type):
+        if self.personagem.vulneravel:
+            self.personagem.saude_atual -= amount
+            self.personagem.vulneravel = False
+            self.personagem.vulneravel_timer = pygame.time.get_ticks()
+
     def run(self):
         #ATUALIZA E MOSTRA O JOGO
         self.sprites_visiveis.draw_personalizado(self.personagem)
