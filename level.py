@@ -82,7 +82,7 @@ class Level:
         self.bolinha_item4 = Coletaveis((1520, 3000), 'bola', [self.sprites_visiveis], self.sprites_obstaculos)
         self.bolinha_item5 = Coletaveis((2428, 1480), 'bola', [self.sprites_visiveis], self.sprites_obstaculos)
         self.raquete_item = Coletaveis((1300, 2000),'raquete', [self.sprites_visiveis], self.sprites_obstaculos)
-        self.coxinha_item1 = Coletaveis((2300, 2500), 'coxinha', [self.sprites_visiveis], self.sprites_obstaculos)
+        self.coxinha_item1 = Coletaveis((2300, 4800), 'coxinha', [self.sprites_visiveis], self.sprites_obstaculos)
         self.coxinha_item2 = Coletaveis((2500, 2700), 'coxinha', [self.sprites_visiveis], self.sprites_obstaculos)
         self.cracha_item1 = Coletaveis((2500, 5200), 'cracha', [self.sprites_visiveis], self.sprites_obstaculos)
         self.vetor_item = Coletaveis((2500, 5400), 'vetor', [self.sprites_visiveis], self.sprites_obstaculos)

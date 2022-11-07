@@ -126,7 +126,7 @@ class Personagem(Entity):
                 self.attack_time = pygame.time.get_ticks()
                 self.criar_ataque('bola')
 
-            if keys[pygame.K_2]:
+            if keys[pygame.K_f]:
                 self.comendo = True
                 self.comendo_time = pygame.time.get_ticks()
                 if self.inventario['coxinha'] > 0 and self.saude_atual < 100:
