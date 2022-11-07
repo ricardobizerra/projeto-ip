@@ -34,8 +34,9 @@ class Level:
     def criar_mapa(self):
         layouts = { 
             'boundary': import_csv_layout('map/map_Boundaries.csv'),
-            'obstacle': import_csv_layout('map/map_Obstacles.csv')
-        }
+            'obstacle': import_csv_layout('map/map_Obstacles.csv'),
+            'entities' : import_csv_layout('map/map_Entities.csv')
+        }   
         graphics = {
             'grass': import_folder('graphics/Grass'),
             'objects': import_folder('graphics/objects')
@@ -146,16 +147,9 @@ class Level:
                         if style == 'obstacle' and coluna == '72':
                             surf = pygame.image.load('graphics/spritespiskel/mesa pc (5).png')
                             Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'object',surf)
-                            
-                        
-
-        #INTERFACE DO PERSONAGEM.
-        self.ui = Interface_usuario()
-
-
-        # Desenho do personagem no início
-        self.personagem = Personagem((1500,2200),[self.sprites_visiveis],self.sprites_obstaculos, self.criar_ataque)
-
+                        if style == 'entities':
+                            if coluna == '0':
+                                self.personagem = Personagem((2500,5000),[self.sprites_visiveis],self.sprites_obstaculos, self.criar_ataque)
 
         # Coletáveis no início
         self.bolinha_item1 = Coletaveis((2210, 2730), 'bola', [self.sprites_visiveis], self.sprites_obstaculos)
@@ -163,20 +157,45 @@ class Level:
         self.bolinha_item3 = Coletaveis((1100, 700), 'bola', [self.sprites_visiveis], self.sprites_obstaculos)
         self.bolinha_item4 = Coletaveis((1520, 3000), 'bola', [self.sprites_visiveis], self.sprites_obstaculos)
         self.bolinha_item5 = Coletaveis((2428, 1480), 'bola', [self.sprites_visiveis], self.sprites_obstaculos)
-        self.raquete_item = Coletaveis((2000, 2000),'raquete', [self.sprites_visiveis], self.sprites_obstaculos)
-        self.coxinha_item1 = Coletaveis((2300, 2500), 'coxinha', [self.sprites_visiveis], self.sprites_obstaculos)
+        self.raquete_item = Coletaveis((1300, 2000),'raquete', [self.sprites_visiveis], self.sprites_obstaculos)
+        self.coxinha_item1 = Coletaveis((2300, 4800), 'coxinha', [self.sprites_visiveis], self.sprites_obstaculos)
         self.coxinha_item2 = Coletaveis((2500, 2700), 'coxinha', [self.sprites_visiveis], self.sprites_obstaculos)
+        self.cracha_item1 = Coletaveis((2500, 5200), 'cracha', [self.sprites_visiveis], self.sprites_obstaculos)
+        self.vetor_item = Coletaveis((2500, 5400), 'vetor', [self.sprites_visiveis], self.sprites_obstaculos)
+        self.pendrive = Coletaveis((2500, 5600), 'pendrive', [self.sprites_visiveis], self.sprites_obstaculos)
+
+        # Inimigos no inicio
+        self.enemy_mob = Inimigo('enemy_mob', (2400, 5500), [self.sprites_visiveis, self.sprites_atacaveis], self.sprites_obstaculos, self.damage_player)
+        self.enemy_knight = Inimigo('enemy_knight', (2600, 5500), [self.sprites_visiveis, self.sprites_atacaveis], self.sprites_obstaculos, self.damage_player)
+        self.enemy_boss = Inimigo('enemy_boss', (2500, 5500), [self.sprites_visiveis, self.sprites_atacaveis], self.sprites_obstaculos, self.damage_player)
+
     # criação do ataque
     def criar_ataque(self, type):
         if self.personagem.inventario[type] > 0:
-            Weapon(self.personagem, [self.sprites_visiveis], type, self.sprites_obstaculos)
+            Weapon(self.personagem, [self.sprites_visiveis, self.sprites_ataque], type, self.sprites_obstaculos)
             if type == 'bola':
                 self.personagem.inventario['bola'] -= 1
+
+    def logica_ataque(self):
+        if self.sprites_ataque:
+            for sprite_ataque in self.sprites_ataque:
+               lista_sprites_colisao = pygame.sprite.spritecollide(sprite_ataque,self.sprites_atacaveis,False)
+               if lista_sprites_colisao:
+                for alvo in lista_sprites_colisao:
+                    alvo.levar_dano(self.personagem,sprite_ataque.sprite_type)
+
+    def damage_player(self,amount,attack_type):
+        if self.personagem.vulneravel:
+            self.personagem.saude_atual -= amount
+            self.personagem.vulneravel = False
+            self.personagem.vulneravel_timer = pygame.time.get_ticks()
 
     def run(self):
         #ATUALIZA E MOSTRA O JOGO
         self.sprites_visiveis.draw_personalizado(self.personagem)
         self.sprites_visiveis.update()
+        self.logica_ataque()
+        self.sprites_visiveis.enemy_update(self.personagem)
 
         #Fazendo os coletáveis sumirem
         self.bolinha_item1.apagar_col(self.personagem)
@@ -187,7 +206,9 @@ class Level:
         self.raquete_item.apagar_col(self.personagem)
         self.coxinha_item1.apagar_col(self.personagem)
         self.coxinha_item2.apagar_col(self.personagem)
-
+        self.cracha_item1.apagar_col(self.personagem)
+        self.vetor_item.apagar_col(self.personagem)
+        self.pendrive.apagar_col(self.personagem)
 
         debug(self.personagem.status)
         self.iu.display(self.personagem)
@@ -221,4 +242,8 @@ class YsortGrupoCamera(pygame.sprite.Group):
             offset_pos = sprite.rect.topleft - self.offset
             self.superficie_tela.blit(sprite.image,offset_pos)
 
+    def enemy_update(self,player):
+        enemy_sprites = [sprite for sprite in self.sprites() if hasattr(sprite,'sprite_type') and sprite.sprite_type == 'enemy']
+        for enemy in enemy_sprites:
+            enemy.enemy_update(player)
     
