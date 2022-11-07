@@ -48,9 +48,11 @@ class Interface_usuario():
 
     def mostrar_arma_caixa(self, inventario, arma_equipada):
         plano_fundo = self.caixa_selecao(10,610)
-        retangulo_arma = self.superficie_tela.get_rect(center = plano_fundo.center)
-        superficie_arma = pygame.image.load('graphics/coletaveis/raquete_item/full.png')
-        self.superficie_tela.blit(superficie_arma, retangulo_arma)
+
+        if inventario[arma_equipada]:
+            superficie_arma = pygame.image.load(f'graphics/weapons/{arma_equipada}/full.png')
+            retangulo_arma = superficie_arma.get_rect(center = plano_fundo.center)
+            self.superficie_tela.blit(superficie_arma, retangulo_arma)
 
     def desenho_bola(self):
         superficie_des_bola = pygame.image.load('graphics/coletaveis/bola_item/full.png')
