@@ -1,5 +1,5 @@
 import pygame
-from ententies import  Entity
+from entities import  Entity
 from settings import *
 from support import import_folder
 
@@ -191,13 +191,17 @@ class Personagem(Entity):
         if self.attacking:
             if current_time - self.attack_time >= self.attack_cooldown + weapon_data[self.arma_equipada]['dano']:
                 self.attacking = False
-                self.speed *= 2
+                
+                if self.speed < 10:
+                    self.speed *= 2
         
         if self.comendo:
             if current_time - self.comendo_time >= self.comendo_cooldown:
                 self.curar(50)
                 self.comendo = False
-                self.speed *= 2
+
+                if self.speed < 10:
+                    self.speed *= 2
 
         if not self.vulneravel:
             if current_time - self.vulneravel_timer >= self.vulneravel_cooldown:

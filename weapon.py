@@ -42,12 +42,12 @@ class Weapon(pygame.sprite.Sprite):
             self.direction.y = 1
         
         # movimentação
-        if type == 'bola':
+        if self.sprite_type == 'bola':
             self.speed = 20
 
         # hitbox
         self.hitbox = self.rect.inflate(0,-10)
-        if type == 'bola':
+        if self.sprite_type == 'bola':
             self.obstaculo_sprites = obstaculo_sprites
 
         # contador de tempo
@@ -92,5 +92,5 @@ class Weapon(pygame.sprite.Sprite):
     def update(self):
         self.timer()
         self.input()
-        if type == 'bola':
+        if self.sprite_type == 'bola':
             self.move(self.speed)

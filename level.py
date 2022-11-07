@@ -206,10 +206,10 @@ class Level:
     def logica_ataque(self):
         if self.sprites_ataque:
             for sprite_ataque in self.sprites_ataque:
-               lista_sprites_colisao = pygame.sprite.spritecollide(sprite_ataque,self.sprites_atacaveis,False)
-               if lista_sprites_colisao:
-                for alvo in lista_sprites_colisao:
-                    alvo.levar_dano(self.personagem,sprite_ataque.sprite_type)
+                lista_sprites_colisao = pygame.sprite.spritecollide(sprite_ataque,self.sprites_atacaveis,False)
+                if lista_sprites_colisao:
+                    for alvo in lista_sprites_colisao:
+                        alvo.levar_dano(self.personagem,sprite_ataque.sprite_type)
 
     def damage_player(self,amount,attack_type):
         if self.personagem.vulneravel:

@@ -1,6 +1,6 @@
 import pygame 
 from settings import *
-from ententies import Entity
+from entities import Entity
 from support import *
 
 
