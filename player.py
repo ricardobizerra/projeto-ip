@@ -119,7 +119,7 @@ class Personagem(Entity):
             if keys[pygame.K_SPACE]:
                 self.attacking = True
                 self.attack_time = pygame.time.get_ticks()
-                self.criar_ataque('raquete')
+                self.criar_ataque('cracha')
             
             if keys[pygame.K_b]:
                 self.attacking = True

@@ -31,44 +31,17 @@ class Weapon(pygame.sprite.Sprite):
         
         # movimentação
         self.direction = pygame.math.Vector2()
-        self.speed = 20
 
         # hitbox
         self.hitbox = self.rect.inflate(0,-10)
 
-        #COLISÃO
-        self.obstaculo_sprites = obstaculo_sprites
+        # contador de tempo
+        self.inicio_ataque = pygame.time.get_ticks()
     
-    def input(self):
-
-        if self.attack_direction == 'right':
-            self.direction.x = 1
-            self.direction.y = 0
-
-        elif self.attack_direction == 'left':
-            self.direction.x = -1
-            self.direction.y = 0
-        
-        elif self.attack_direction == 'up':
-            self.direction.x = 0
-            self.direction.y = -1
-        
-        else:
-            self.direction.x = 0
-            self.direction.y = 1
-    
-    def move(self, speed):
-        self.hitbox.x += self.direction.x * speed
-        self.hitbox.y += self.direction.y * speed
-        self.rect.center = self.hitbox.center
-
-        self.colisao()
-    
-    def colisao(self):
-        for sprite in self.obstaculo_sprites:
-            if sprite.hitbox.colliderect(self.hitbox):
-                self.kill()
+    def timer(self):
+        current_time = pygame.time.get_ticks()
+        if current_time - self.inicio_ataque >= 200:
+            self.kill()
 
     def update(self):
-        self.input()
-        self.move(self.speed)
+        self.timer()

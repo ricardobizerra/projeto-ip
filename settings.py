@@ -27,11 +27,21 @@ weapon_data = {
         'graphic': 'graphics/weapons/raquete/full.png'
     },
     'bola': {
-        'cooldown': 25,
+        'cooldown': 2500,
         'dano': 12,
         'graphic': 'graphics/weapons/bola/full.png'
+    },
+    'cracha': {
+        'cooldown': 50,
+        'dano': 15,
+        'graphic': 'graphics/weapons/cracha/full.png'
+    },
+    'vetor': {
+        'cooldown': 25,
+        'dano': 25,
+        'graphic': 'graphics/weapons/vetor/full.png'
     }
-}
+    }
 
 # dicionario de inimigos.
 enemy_data = {
