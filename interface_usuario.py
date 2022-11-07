@@ -130,5 +130,5 @@ class Interface_usuario():
             self.desenho_pendrive()
             self.inventario_pendrive(personagem.inventario)
         self.mostrar_barra_vida(personagem.saude_atual,personagem.status_saude['saude'], self.barra_vida_rect, cor_barra_vida)
-        self.caixa_selecao(10,610)
-        self.mostrar_arma_caixa(personagem.weapon_index)
+        # self.caixa_selecao(10,610)
+        # self.mostrar_arma_caixa(personagem.weapon_index)
