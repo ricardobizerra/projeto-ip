@@ -21,7 +21,7 @@ class Jogo:
         #SETUP GERAL
         pygame.init()
         self.tela = pygame.display.set_mode((largura, altura)) #(x,y): tamanho da tela
-        self.nome_oficial = 'The Legend of Marcelo: CIn Invasion'
+        self.nome_oficial = 'The Legend of Marcelo: CInvasion'
         self.nome_jogo = pygame.display.set_caption(self.nome_oficial)
         self.clock = pygame.time.Clock()
 
@@ -44,14 +44,19 @@ class Jogo:
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and not self.game_active:
                     self.game_active = True
                     self.level = Level()
+                    self.morte = False
                     self.numero_partidas += 1
 
             if self.game_active:
                 self.tela.fill('black')
                 self.level.run()
 
-                if self.level.personagem.saude_atual <= 0:
+                if self.level.personagem.saude_atual <= 0 or self.level.personagem.usou_pendrive:
                     self.game_active = False
+
+                    if self.level.personagem.saude_atual <= 0:
+                        self.morte = True
+
                     self.level.personagem.saude_atual = 100
 
             else:
@@ -101,31 +106,73 @@ class Jogo:
                     self.mensagem_tela('ENTER para iniciar', 1020, 600, 'White', 60)
 
                 else:
-
-                    # imagem de fundo
-                    superficie_fundo = pygame.image.load('graphics/display/background_black.png').convert_alpha()
-                    rect_fundo = superficie_fundo.get_rect(topleft = (0, 0))
-                    self.tela.blit(superficie_fundo, rect_fundo)
-
-                    # título
-                    self.mensagem_tela(self.nome_oficial, 640, 120, '#ffffff', 90)
                     
-                    self.mensagem_tela(
-                        'Ah não, infelizmente, não deu! O CIn foi tomado por',
-                        640, 270, 'White', 40
-                    )
+                    # derrota
+                    if self.morte:
 
-                    self.mensagem_tela(
-                        'forças robóticas. Seu lucro e seus salgados foram perdidos. F, turma',
-                        640, 305, 'White', 40
-                    )
+                        # imagem de fundo
+                        superficie_fundo = pygame.image.load('graphics/display/background_black.png').convert_alpha()
+                        rect_fundo = superficie_fundo.get_rect(topleft = (0, 0))
+                        self.tela.blit(superficie_fundo, rect_fundo)
 
-                    self.mensagem_tela(
-                        'Mas vamos tentar de novo! Nós temos a força e o poder do conhecimento!',
-                        640, 380, 'White', 40
-                    )
+                        # título
+                        self.mensagem_tela(self.nome_oficial, 640, 120, '#ffffff', 90)
+                        
+                        self.mensagem_tela(
+                            'Ah não, infelizmente, não deu! O CIn foi tomado por',
+                            640, 270, 'White', 40
+                        )
 
-                    self.mensagem_tela('ENTER para reiniciar', 1020, 600, 'White', 60)
+                        self.mensagem_tela(
+                            'forças robóticas. Seu lucro e seus salgados foram perdidos. F, turma',
+                            640, 305, 'White', 40
+                        )
+
+                        self.mensagem_tela(
+                            'Mas vamos tentar de novo! Nós temos a força e o poder do conhecimento!',
+                            640, 380, 'White', 40
+                        )
+
+                        self.mensagem_tela('ENTER para reiniciar', 1020, 600, 'White', 60)
+                    
+                    # vitória
+                    else:
+
+                        # imagem de fundo
+                        superficie_fundo = pygame.image.load('graphics/display/background_gold.png').convert_alpha()
+                        rect_fundo = superficie_fundo.get_rect(topleft = (0, 0))
+                        self.tela.blit(superficie_fundo, rect_fundo)
+
+                        # título
+                        self.mensagem_tela(self.nome_oficial, 640, 120, '#ffffff', 90)
+                        
+                        self.mensagem_tela(
+                            'BOAAAAAAAAAAAAAAAA!!!! Você conseguiu!',
+                            640, 250, 'White', 40
+                        )
+
+                        self.mensagem_tela(
+                            'Graças aos seus conhecimentos no CIn, o pendrive desativou todos os robôs!',
+                            640, 285, 'White', 40
+                        )
+
+                        self.mensagem_tela(
+                            'O Centro está salvo, Marcelo está cada vez mais próximo de se tornar um milionário',
+                            640, 320, 'White', 40
+                        )
+
+                        self.mensagem_tela(
+                            'e seu império de salgados sobrevive a mais um dia!',
+                            640, 355, 'White', 40
+                        )
+
+                        self.mensagem_tela(
+                            'Vem cá, mas quem foi que fez tudo isso, hein? Fica o mistério...',
+                            640, 410, 'White', 40
+                        )
+
+                        self.mensagem_tela('ENTER para reiniciar', 1020, 600, 'White', 60)
+
             
             pygame.display.update()
             self.clock.tick(FPS)

@@ -50,6 +50,9 @@ class Personagem(Entity):
         #COLISÃO
         self.obstaculo_sprites = obstaculo_sprites
 
+        # zerar o jogo
+        self.usou_pendrive = False
+
     #METODO PARA RECUPERAR VIDA.
     def curar(self, cura):
         if self.saude_atual + cura < self.status_saude['saude']:
@@ -129,6 +132,10 @@ class Personagem(Entity):
                 if self.inventario['coxinha'] > 0 and self.saude_atual < 100:
                     self.inventario['coxinha'] -= 1
                     self.curar(50)
+            
+            # input para zerar o jogo
+            if keys[pygame.K_x] and self.inventario['pendrive'] == 1:
+                self.usou_pendrive = True
 
     # estados do jogador
     def get_status(self):
