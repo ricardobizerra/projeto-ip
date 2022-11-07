@@ -134,6 +134,7 @@ class Personagem(Entity):
             
             if keys[pygame.K_b] and not self.comendo:
                 self.attacking = True
+                self.speed *= 0.5
                 self.attack_time = pygame.time.get_ticks()
                 arma_anterior = self.arma_equipada
                 self.arma_equipada = 'bola'
