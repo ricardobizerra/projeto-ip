@@ -59,7 +59,7 @@ class Interface_usuario():
         self.display_superficie.blit(superficie_des_bola, des_bola_rect)
 
     def inventario_bolas(self, inventario):
-        superficie_inventario = self.font.render(f"{str(inventario['bola'])}", True, 'Black')
+        superficie_inventario = self.font.render(f"{str(inventario['bola'])}  'B' para arremessar", True, 'Black')
         inventario_rect = superficie_inventario.get_rect(topleft=(35, 90))
         self.display_superficie.blit(superficie_inventario, inventario_rect)
 
@@ -68,7 +68,7 @@ class Interface_usuario():
         des_raquete_rect = superficie_des_raquete.get_rect(topleft=(10, 193))
         self.display_superficie.blit(superficie_des_raquete, des_raquete_rect)
     def inventario_raquetes(self, inventario):
-        superficie_inventario = self.font.render('possui', True, 'Black')
+        superficie_inventario = self.font.render('Aperte 2 para equipar', True, 'Black')
         inventario_rect = superficie_inventario.get_rect(topleft=(40, 205))
         self.display_superficie.blit(superficie_inventario, inventario_rect)
 
@@ -78,7 +78,7 @@ class Interface_usuario():
         self.display_superficie.blit(superficie_des_coxinha, des_coxinha_rect)
 
     def inventario_coxinhas(self, inventario):
-        superficie_inventario = self.font.render(f"{str(inventario['coxinha'])}", True, 'Black')
+        superficie_inventario = self.font.render(f"{str(inventario['coxinha'])}  'F' para curar", True, 'Black')
         inventario_rect = superficie_inventario.get_rect(topleft=(40, 120))
         self.display_superficie.blit(superficie_inventario, inventario_rect)
 
@@ -88,7 +88,7 @@ class Interface_usuario():
         self.display_superficie.blit(superficie_des_cracha, des_cracha_rect)
 
     def inventario_cracha1(self, inventario):
-        superficie_inventario = self.font.render('possui', True, 'Black')
+        superficie_inventario = self.font.render('Aperte 1 para equipar', True, 'Black')
         inventario_rect = superficie_inventario.get_rect(topleft=(40, 160))
         self.display_superficie.blit(superficie_inventario, inventario_rect)
 
@@ -98,7 +98,7 @@ class Interface_usuario():
         self.display_superficie.blit(superficie_des_vetor, des_vetor_rect)
 
     def inventario_vetor(self, inventario):
-        superficie_inventario = self.font.render('possui', True, 'Black')
+        superficie_inventario = self.font.render('Aperte 3 para equipar', True, 'Black')
         inventario_rect = superficie_inventario.get_rect(topleft=(40, 250))
         self.display_superficie.blit(superficie_inventario, inventario_rect)
 
