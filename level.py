@@ -89,9 +89,9 @@ class Level:
         self.pendrive = Coletaveis((2500, 5600), 'pendrive', [self.sprites_visiveis], self.sprites_obstaculos)
 
         # Inimigos no inicio
-        self.inimigo_melee = Inimigo('mob_melee', (2400, 5500), [self.sprites_visiveis, self.sprites_atacaveis], self.sprites_obstaculos, self.damage_player)
-        self.inimigo_ranged = Inimigo('mob_ranged', (2600, 5500), [self.sprites_visiveis, self.sprites_atacaveis], self.sprites_obstaculos, self.damage_player)
-        self.inimigo_elite = Inimigo('mob_elite', (2500, 5500), [self.sprites_visiveis, self.sprites_atacaveis], self.sprites_obstaculos, self.damage_player)
+        self.enemy_mob = Inimigo('enemy_mob', (2400, 5500), [self.sprites_visiveis, self.sprites_atacaveis], self.sprites_obstaculos, self.damage_player)
+        self.enemy_knight = Inimigo('enemy_knight', (2600, 5500), [self.sprites_visiveis, self.sprites_atacaveis], self.sprites_obstaculos, self.damage_player)
+        self.enemy_boss = Inimigo('enemy_boss', (2500, 5500), [self.sprites_visiveis, self.sprites_atacaveis], self.sprites_obstaculos, self.damage_player)
 
     # criação do ataque
     def criar_ataque(self, type):

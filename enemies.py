@@ -11,12 +11,7 @@ class Inimigo(Entity):
 
         self.status = 'idle'
 
-        if nome_inimigo == 'mob_melee':
-            self.image = pygame.image.load('graphics/test/enemy_melee.png').convert_alpha()
-        elif nome_inimigo == 'mob_ranged':
-            self.image = pygame.image.load('graphics/test/enemy_rannged.png').convert_alpha()
-        elif nome_inimigo == 'mob_elite':
-            self.image = pygame.image.load('graphics/test/enemy_elite.png').convert_alpha()
+        self.image = pygame.image.load('graphics/inimigos/'+nome_inimigo+'/'+self.status+'/0.png').convert_alpha()
 
         self.rect =  self.image.get_rect(topleft=pos)
         self.hitbox = self.rect.inflate(0,-10)
@@ -129,7 +124,7 @@ class Inimigo(Entity):
             self.speed_multiplier = 1
         if self.launch_attack and self.interrupted:
             self.launch_attack = False
-            self.can_attack = False
+            self.can_attack = True
             print(self.attack, 'interrupted')
             self.interrupted = False
             self.speed_multiplier = 1
@@ -138,6 +133,7 @@ class Inimigo(Entity):
         self.move(self.speed*self.speed_multiplier)
         self.cooldowns()
         if not self.vulneravel:
+            self.image = pygame.image.load('graphics/inimigos/'+self.tipo_inimigo+'/attack_sprites/hurt.png')
             alpha = self.flicker()
             self.image.set_alpha(alpha)
         else:
@@ -146,5 +142,11 @@ class Inimigo(Entity):
     def enemy_update(self,player):
         self.get_status(player)
         self.actions(player)
+        if self.status != 'attack':
+            self.image = pygame.image.load('graphics/inimigos/'+self.tipo_inimigo+'/'+self.status+'/0.png')
+        if self.attacking:
+            self.image = pygame.image.load('graphics/inimigos/'+self.tipo_inimigo+'/attack_sprites/attacking.png')
+        if not self.can_attack:
+            self.image = pygame.image.load('graphics/inimigos/'+self.tipo_inimigo+'/attack_sprites/cooldown.png')
         self.verificar_morte()  
         self.reacao_dano()
