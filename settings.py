@@ -35,7 +35,7 @@ weapon_data = {
 
 # dicionario de inimigos.
 enemy_data = {
-        'mob_melee' : {'health' : 75, 'dano' : 20, 'attack_type' : 'swipe', 'resistance' : 3, 'speed' : 7, 'attack_radius' : 25, 'notice_radius' : 400, 'withdraw_radius' : 0, 'cooldown_ataque' : 800, 'startup_ataque' : 400},
-        'mob_ranged' : {'health' : 50, 'dano' : 10, 'attack_type' : 'shot', 'resistance' : 1, 'speed' : 5, 'attack_radius' : 400, 'notice_radius' : 600, 'withdraw_radius' : 200, 'cooldown_ataque' : 1200, 'startup_ataque' : 600},
-        'mob_elite' : {'health' : 250, 'dano' : 30, 'attack_type' : 'slash', 'resistance' : 5, 'speed' : 6, 'attack_radius' : 75, 'notice_radius' : 1500, 'withdraw_radius' : 50, 'cooldown_ataque' : 400, 'startup_ataque' : 200},
+        'enemy_mob' : {'health' : 75, 'dano' : 20, 'attack_type' : 'swipe', 'resistance' : 2, 'speed' : 7, 'attack_radius' : 15, 'notice_radius' : 400, 'withdraw_radius' : 0, 'cooldown_ataque' : 800, 'startup_ataque' : 400},
+        'enemy_knight' : {'health' : 150, 'dano' : 10, 'attack_type' : 'shot', 'resistance' : 5, 'speed' : 5, 'attack_radius' : 40, 'notice_radius' : 400, 'withdraw_radius' : 20, 'cooldown_ataque' : 600, 'startup_ataque' : 300},
+        'enemy_boss' : {'health' : 250, 'dano' : 30, 'attack_type' : 'slash', 'resistance' : 7, 'speed' : 3, 'attack_radius' : 75, 'notice_radius' : 300, 'withdraw_radius' : 50, 'cooldown_ataque' : 400, 'startup_ataque' : 200},
 }

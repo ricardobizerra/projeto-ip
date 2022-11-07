@@ -38,7 +38,7 @@ class Personagem(Entity):
 
         # Inventário:
         self.inventario = {
-            'bola': 0, 'raquete': 0, 'coxinha': 0, 'cracha': 0, 'vetor': 0
+            'bola': 0, 'raquete': 0, 'coxinha': 0, 'cracha': 0, 'vetor': 0, 'pendrive': 0
         }
 
         #STATUS DO PERSONAGEM.
@@ -49,6 +49,9 @@ class Personagem(Entity):
 
         #COLISÃO
         self.obstaculo_sprites = obstaculo_sprites
+
+        # zerar o jogo
+        self.usou_pendrive = False
 
     #METODO PARA RECUPERAR VIDA.
     def curar(self, cura):
@@ -123,12 +126,16 @@ class Personagem(Entity):
                 self.attack_time = pygame.time.get_ticks()
                 self.criar_ataque('bola')
 
-            if keys[pygame.K_2]:
+            if keys[pygame.K_f]:
                 self.comendo = True
                 self.comendo_time = pygame.time.get_ticks()
                 if self.inventario['coxinha'] > 0 and self.saude_atual < 100:
                     self.inventario['coxinha'] -= 1
                     self.curar(50)
+            
+            # input para zerar o jogo
+            if keys[pygame.K_x] and self.inventario['pendrive'] == 1:
+                self.usou_pendrive = True
 
     # estados do jogador
     def get_status(self):
