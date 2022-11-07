@@ -33,8 +33,6 @@ class Personagem(Entity):
 
         # armas
         self.criar_ataque = criar_ataque
-        self.weapon_index = 0
-        self.weapon = list(weapon_data.keys())[self.weapon_index]
 
         # Inventário:
         self.inventario = {
@@ -42,6 +40,7 @@ class Personagem(Entity):
         }
 
         #STATUS DO PERSONAGEM.
+        self.arma_equipada = 'cracha'
         self.status_saude = {'saude': 100, 'ataque': 5}
         self.saude_atual = self.status_saude['saude']
         self.razao = self.saude_atual / largura_barra_vida
@@ -62,11 +61,8 @@ class Personagem(Entity):
 
     def get_full_weapon_damage(self):
         dano_base = self.status_saude['ataque']
-        dano_arma = weapon_data[self.weapon]['dano']
-        if weapon_data[self.weapon] == 'bola':
-            return dano_arma
-        else:
-            return dano_base + dano_arma
+        dano_arma = weapon_data[self.arma_equipada]['dano']
+        return dano_base + dano_arma
         
     # "unir" estados do jogador com pastas de imagens para animação
     def import_player_assets(self):
@@ -92,47 +88,74 @@ class Personagem(Entity):
 
     #DETECTAR AS TECLAS DO TECLADO
     def input(self):
+        keys = pygame.key.get_pressed()
 
-        if not self.attacking and not self.comendo:
-            keys = pygame.key.get_pressed()
-
-            # input de movimento
-            if keys[pygame.K_UP] or keys[pygame.K_w]:
-                self.direction.y = -1
+        # input de movimento
+        if keys[pygame.K_UP] or keys[pygame.K_w]:
+            self.direction.y = -1
+            if not self.attacking:
                 self.status = 'normal_up'
-            elif keys[pygame.K_DOWN] or keys[pygame.K_s]:
-                self.direction.y = 1
+            else:
+                self.status = 'attack_up'
+
+        elif keys[pygame.K_DOWN] or keys[pygame.K_s]:
+            self.direction.y = 1
+            if not self.attacking:
                 self.status = 'normal_down'
             else:
-                self.direction.y = 0
+                self.status = 'attack_down'
 
-            if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
-                self.direction.x = 1
+        else:
+            self.direction.y = 0
+
+        if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
+            self.direction.x = 1
+            if not self.attacking: 
                 self.status = 'normal_right'
-            elif keys[pygame.K_LEFT] or keys[pygame.K_a]:
-                self.direction.x = -1
-                self.status = 'normal_left'
             else:
-                self.direction.x = 0
-            
-            # input de ataque
-            if keys[pygame.K_SPACE]:
-                self.attacking = True
-                self.attack_time = pygame.time.get_ticks()
-                self.criar_ataque('cracha')
-            
-            if keys[pygame.K_b]:
-                self.attacking = True
-                self.attack_time = pygame.time.get_ticks()
-                self.criar_ataque('bola')
+                self.status = 'attack_right'
 
-            if keys[pygame.K_f]:
-                self.comendo = True
-                self.comendo_time = pygame.time.get_ticks()
-                if self.inventario['coxinha'] > 0 and self.saude_atual < 100:
-                    self.inventario['coxinha'] -= 1
-                    self.curar(50)
+        elif keys[pygame.K_LEFT] or keys[pygame.K_a]:
+            self.direction.x = -1
+            if not self.attacking:
+                self.status = 'normal_left'
+            else: 
+                self.status = 'attack_left'
+        else:
+            self.direction.x = 0
             
+        # input de ataque
+        if not self.attacking:
+            if keys[pygame.K_SPACE] and not self.comendo:
+                self.attacking = True
+                self.speed *= 0.5
+                self.attack_time = pygame.time.get_ticks()
+                self.criar_ataque(self.arma_equipada)
+            
+            if keys[pygame.K_b] and not self.comendo:
+                self.attacking = True
+                self.attack_time = pygame.time.get_ticks()
+                arma_anterior = self.arma_equipada
+                self.arma_equipada = 'bola'
+                self.criar_ataque(self.arma_equipada)
+                self.arma_equipada = arma_anterior
+
+            if keys[pygame.K_f] and not self.comendo:
+                if self.inventario['coxinha'] > 0 and self.saude_atual < 100:
+                    self.comendo = True
+                    self.speed *= 0.5
+                    self.comendo_time = pygame.time.get_ticks()
+                    self.inventario['coxinha'] -= 1
+            
+            if keys[pygame.K_1]:
+                self.arma_equipada = 'cracha'
+
+            if keys[pygame.K_2]:
+                self.arma_equipada = 'raquete'
+
+            if keys[pygame.K_3]:
+                self.arma_equipada = 'vetor'
+
             # input para zerar o jogo
             if keys[pygame.K_x] and self.inventario['pendrive'] == 1:
                 self.usou_pendrive = True
@@ -141,7 +164,7 @@ class Personagem(Entity):
     def get_status(self):
 
         # ocioso (idle)
-        if self.direction.x == 0 and self.direction.y == 0:
+        if self.direction.x == 0 and self.direction.y == 0 and not self.attacking:
 
             if not 'idle' in self.status and not 'attack' in self.status:
                 self.status = self.status.replace('normal_','idle_')
@@ -149,13 +172,10 @@ class Personagem(Entity):
         # ataque
         if self.attacking:
 
-            self.direction.x = 0
-            self.direction.y = 0
-
             if not 'attack' in self.status:
-
                 if 'idle' in self.status:
                     self.status = self.status.replace('idle_','attack_')
+
                 else:
                     self.status = self.status.replace('normal_','attack_')
         
@@ -169,12 +189,15 @@ class Personagem(Entity):
         current_time = pygame.time.get_ticks()
 
         if self.attacking:
-            if current_time - self.attack_time >= self.attack_cooldown + weapon_data[self.weapon]['dano']:
+            if current_time - self.attack_time >= self.attack_cooldown + weapon_data[self.arma_equipada]['dano']:
                 self.attacking = False
+                self.speed *= 2
         
         if self.comendo:
             if current_time - self.comendo_time >= self.comendo_cooldown:
+                self.curar(50)
                 self.comendo = False
+                self.speed *= 2
 
         if not self.vulneravel:
             if current_time - self.vulneravel_timer >= self.vulneravel_cooldown:
