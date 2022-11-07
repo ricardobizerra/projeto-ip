@@ -66,6 +66,8 @@ class Inimigo(Entity):
             self.direction = -(self.get_pos_dir(player)[1])
             if tipo_ataque == 'weapon':
                 self.health -= player.get_full_weapon_damage()
+            elif tipo_ataque == 'bola':
+                self.health -= 10
             self.tempo_ataque = pygame.time.get_ticks()
             self.vulneravel = False 
             
@@ -106,7 +108,6 @@ class Inimigo(Entity):
             if not self.attacking and not self.launch_attack:
                 self.attacking = True
                 self.attacking_timer = pygame.time.get_ticks()
-                print('started',self.attack,'attack')
                 self.speed_multiplier = 0.5
         elif self.status == 'move':
             self.direction = self.get_pos_dir(player)[1]
@@ -119,13 +120,11 @@ class Inimigo(Entity):
             self.launch_attack = False
             self.attack_time = pygame.time.get_ticks()
             self.can_attack = False
-            print(self.attack, 'attack!!!')
             self.damage_player(self.dano,self.attack)
             self.speed_multiplier = 1
         if self.launch_attack and self.interrupted:
             self.launch_attack = False
             self.can_attack = True
-            print(self.attack, 'interrupted')
             self.interrupted = False
             self.speed_multiplier = 1
 

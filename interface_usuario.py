@@ -46,11 +46,10 @@ class Interface_usuario():
         pygame.draw.rect(self.superficie_tela,cor_bordas_interface,plano_fundo, 3)
         return plano_fundo
 
-    def mostrar_arma_caixa(self, weapon_index):
+    def mostrar_arma_caixa(self, inventario, arma_equipada):
         plano_fundo = self.caixa_selecao(10,610)
-        superficie_arma = self.lista_imagem_armas[weapon_index]
         retangulo_arma = self.superficie_tela.get_rect(center = plano_fundo.center)
-
+        superficie_arma = pygame.image.load('graphics/coletaveis/raquete_item/full.png')
         self.superficie_tela.blit(superficie_arma, retangulo_arma)
 
     def desenho_bola(self):
@@ -68,7 +67,7 @@ class Interface_usuario():
         des_raquete_rect = superficie_des_raquete.get_rect(topleft=(10, 193))
         self.display_superficie.blit(superficie_des_raquete, des_raquete_rect)
     def inventario_raquetes(self, inventario):
-        superficie_inventario = self.font.render('Aperte 2 para equipar', True, 'Black')
+        superficie_inventario = self.font.render('2', True, 'Black')
         inventario_rect = superficie_inventario.get_rect(topleft=(40, 205))
         self.display_superficie.blit(superficie_inventario, inventario_rect)
 
@@ -88,7 +87,7 @@ class Interface_usuario():
         self.display_superficie.blit(superficie_des_cracha, des_cracha_rect)
 
     def inventario_cracha1(self, inventario):
-        superficie_inventario = self.font.render('Aperte 1 para equipar', True, 'Black')
+        superficie_inventario = self.font.render('1', True, 'Black')
         inventario_rect = superficie_inventario.get_rect(topleft=(40, 160))
         self.display_superficie.blit(superficie_inventario, inventario_rect)
 
@@ -98,7 +97,7 @@ class Interface_usuario():
         self.display_superficie.blit(superficie_des_vetor, des_vetor_rect)
 
     def inventario_vetor(self, inventario):
-        superficie_inventario = self.font.render('Aperte 3 para equipar', True, 'Black')
+        superficie_inventario = self.font.render('3', True, 'Black')
         inventario_rect = superficie_inventario.get_rect(topleft=(40, 250))
         self.display_superficie.blit(superficie_inventario, inventario_rect)
 
@@ -108,7 +107,7 @@ class Interface_usuario():
         self.display_superficie.blit(superficie_des_pendrive, des_pendrive_rect)
 
     def inventario_pendrive(self, inventario):
-        superficie_inventario = self.font.render('aperte x para acessar o pendrive', True, 'Black')
+        superficie_inventario = self.font.render('X', True, 'Black')
         inventario_rect = superficie_inventario.get_rect(topleft=(40, 310))
         self.display_superficie.blit(superficie_inventario, inventario_rect)
 
@@ -130,5 +129,5 @@ class Interface_usuario():
             self.desenho_pendrive()
             self.inventario_pendrive(personagem.inventario)
         self.mostrar_barra_vida(personagem.saude_atual,personagem.status_saude['saude'], self.barra_vida_rect, cor_barra_vida)
-        # self.caixa_selecao(10,610)
-        # self.mostrar_arma_caixa(personagem.weapon_index)
+        self.caixa_selecao(10,610)
+        self.mostrar_arma_caixa(personagem.inventario, personagem.arma_equipada)
