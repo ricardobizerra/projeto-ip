@@ -51,33 +51,110 @@ class Level:
                         if style == 'boundary':
                             Obstaculo((x,y), [self.sprites_obstaculos], 'none')       
                         if style == 'obstacle' and coluna == '11':
-                                surf = pygame.image.load('graphics/objects/12.png')
+                            surf = pygame.image.load('graphics/objects/12.png')
+                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'object',surf)
                         if style == 'obstacle' and coluna == '12':
                             surf = pygame.image.load('graphics/objects/04.png')
                             Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'object',surf)
                         if style == 'obstacle' and coluna == '13':
                             surf = pygame.image.load('graphics/objects/03.png')
                             Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'object',surf)
-                        if style == 'obstacle':
-                            if coluna == '2':
-                                surf = pygame.image.load('graphics/blocks/boundary_block.png')
-                            elif coluna == '4':
-                                surf = pygame.image.load('graphics/blocks/red_block.png')
-                            elif coluna == '9':
-                                surf = pygame.image.load('graphics/blocks/wall_block.png')
-                            elif coluna == '16':
-                                surf = pygame.image.load('graphics/spritespiskel/catraca.png')
-                            elif coluna == '18':
-                                surf = pygame.image.load('graphics/spritespiskel/mesa.png')
-                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'none',surf)
+                        if style == 'obstacle' and coluna == '2':
+                            surf = pygame.image.load('graphics/blocks/boundary_block.png')
+                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'object',surf)
+                        if style == 'obstacle' and coluna == '4':
+                            surf = pygame.image.load('graphics/blocks/red_block.png')
+                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'object',surf)
+                        if style == 'obstacle' and coluna == '28':
+                            surf = pygame.image.load('graphics/spritespiskel/glass-top.png')
+                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'object',surf)
+                        if style == 'obstacle' and coluna == '133':
+                            surf = pygame.image.load('graphics/spritespiskel/mesa hall.png')
+                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'object',surf)
+                        if style == 'obstacle' and coluna == '138':
+                            surf = pygame.image.load('graphics/spritespiskel/mesapicnic.png')
+                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'object',surf)
+                        if style == 'obstacle' and coluna == '137':
+                            surf = pygame.image.load('graphics/spritespiskel/escadaria.png')
+                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'object',surf)
+                        if style == 'obstacle' and coluna == '142':
+                            surf = pygame.image.load('graphics/spritespiskel/placa.png')
+                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'object',surf)
+                        if style == 'obstacle' and coluna == '84':
+                            surf = pygame.image.load('graphics/spritespiskel/couch.png')
+                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'object',surf)
+                        if style == 'obstacle' and coluna == '89':
+                            surf = pygame.image.load('graphics/spritespiskel/chair.png')
+                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'object',surf)
+                        if style == 'obstacle' and coluna == '97':
+                            surf = pygame.image.load('graphics/spritespiskel/chair (3).png')
+                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'object',surf)
+                        if style == 'obstacle' and coluna == '44':
+                            surf = pygame.image.load('graphics/spritespiskel/microondas.png')
+                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'object',surf)
+                        if style == 'obstacle' and coluna == '45':
+                            surf = pygame.image.load('graphics/spritespiskel/sink.png')
+                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'object',surf)
+                        if style == 'obstacle' and coluna == '22':
+                            surf = pygame.image.load('graphics/spritespiskel/Rect Table.png')
+                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'object',surf)
+                        if style == 'obstacle' and coluna == '47':
+                            surf = pygame.image.load('graphics/spritespiskel/rect table y.png')
+                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'object',surf)
+                        if style == 'obstacle' and coluna == '107':
+                            surf = pygame.image.load('graphics/spritespiskel/chair copa(2).png')
+                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'object',surf)
+                        if style == 'obstacle' and coluna == '108':
+                            surf = pygame.image.load('graphics/spritespiskel/chair copa(1).png')
+                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'object',surf)
+                        if style == 'obstacle' and coluna == '110':
+                            surf = pygame.image.load('graphics/spritespiskel/chair copa(3).png')
+                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'object',surf)
+                        if style == 'obstacle' and coluna == '145':
+                            surf = pygame.image.load('graphics/spritespiskel/refrigerator.png')
+                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'object',surf)
+                        if style == 'obstacle' and coluna == '91':
+                            surf = pygame.image.load('graphics/spritespiskel/chair (2).png')
+                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'object',surf)
+                        if style == 'obstacle' and coluna == '52':
+                            surf = pygame.image.load('graphics/spritespiskel/mesa pc.png')
+                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'object',surf)
+                        if style == 'obstacle' and coluna == '17':
+                            surf = pygame.image.load('graphics/spritespiskel/computador.png')
+                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'object',surf)
+                        if style == 'obstacle' and coluna == '141':
+                            surf = pygame.image.load('graphics/spritespiskel/data center.png')
+                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'object',surf)
+                        if style == 'obstacle' and coluna == '66':
+                            surf = pygame.image.load('graphics/spritespiskel/armario da.png')
+                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'object',surf)
+                        if style == 'obstacle' and coluna == '78':
+                            surf = pygame.image.load('graphics/spritespiskel/mesa da caixa.png')
+                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'object',surf)
+                        if style == 'obstacle' and coluna == '61':
+                            surf = pygame.image.load('graphics/spritespiskel/mesa ping pong.png')
+                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'object',surf)
+                        if style == 'obstacle' and coluna == '18':
+                            surf = pygame.image.load('graphics/spritespiskel/mesa.png')
+                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'object',surf)
+                        if style == 'obstacle' and coluna == '67':
+                            surf = pygame.image.load('graphics/spritespiskel/computador (2).png')
+                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'object',surf)
+                        if style == 'obstacle' and coluna == '127':
+                            surf = pygame.image.load('graphics/spritespiskel/cadeira convivencia.png')
+                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'object',surf)
+                        if style == 'obstacle' and coluna == '72':
+                            surf = pygame.image.load('graphics/spritespiskel/mesa pc (5).png')
+                            Obstaculo((x,y), [self.sprites_visiveis,self.sprites_obstaculos],'object',surf)
                             
-        
+                        
+
         #INTERFACE DO PERSONAGEM.
         self.ui = Interface_usuario()
 
 
         # Desenho do personagem no início
-        self.personagem = Personagem((2500,5000),[self.sprites_visiveis],self.sprites_obstaculos, self.criar_ataque)
+        self.personagem = Personagem((1500,2200),[self.sprites_visiveis],self.sprites_obstaculos, self.criar_ataque)
 
 
         # Coletáveis no início

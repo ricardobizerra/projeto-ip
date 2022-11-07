@@ -40,7 +40,7 @@ class Personagem(pygame.sprite.Sprite):
         }
 
         #STATUS DO PERSONAGEM.
-        self.status_saude = {'saude': 100}
+        self.status_saude = {'saude': 10000}
         self.saude_atual = self.status_saude['saude']
         self.razao = self.saude_atual / largura_barra_vida
 
