@@ -102,6 +102,16 @@ class Interface_usuario():
         inventario_rect = superficie_inventario.get_rect(topleft=(40, 250))
         self.display_superficie.blit(superficie_inventario, inventario_rect)
 
+    def desenho_pendrive(self):
+        superficie_des_pendrive = pygame.image.load(('graphics/coletaveis/pendrive_item/full.png'))
+        des_pendrive_rect = superficie_des_pendrive.get_rect(topleft=(0, 295))
+        self.display_superficie.blit(superficie_des_pendrive, des_pendrive_rect)
+
+    def inventario_pendrive(self, inventario):
+        superficie_inventario = self.font.render('aperte x para acessar o pendrive', True, 'Black')
+        inventario_rect = superficie_inventario.get_rect(topleft=(40, 310))
+        self.display_superficie.blit(superficie_inventario, inventario_rect)
+
     def display(self, personagem):
         self.desenho_bola()
         self.inventario_bolas(personagem.inventario)
@@ -116,6 +126,9 @@ class Interface_usuario():
         if personagem.inventario['vetor'] == 1:
             self.desenho_vetor()
             self.inventario_vetor(personagem.inventario)
+        if personagem.inventario['pendrive'] == 1:
+            self.desenho_pendrive()
+            self.inventario_pendrive(personagem.inventario)
         self.mostrar_barra_vida(personagem.saude_atual,personagem.status_saude['saude'], self.barra_vida_rect, cor_barra_vida)
         # self.caixa_selecao(10,610)
         # self.mostrar_arma_caixa(personagem.weapon_index)

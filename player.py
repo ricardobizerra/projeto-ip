@@ -38,7 +38,7 @@ class Personagem(Entity):
 
         # Inventário:
         self.inventario = {
-            'bola': 0, 'raquete': 0, 'coxinha': 0, 'cracha': 0, 'vetor': 0
+            'bola': 0, 'raquete': 0, 'coxinha': 0, 'cracha': 0, 'vetor': 0, 'pendrive': 0
         }
 
         #STATUS DO PERSONAGEM.
